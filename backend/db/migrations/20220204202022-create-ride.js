@@ -13,13 +13,17 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: "Users" }
       },
-      city: {
+      location: {
         allowNull: false,
         type: Sequelize.STRING(100)
       },
       name: {
         allowNull: false,
         type: Sequelize.STRING(255)
+      },
+      description: {
+        allowNull: false,
+        type: Sequelize.TEXT
       },
       price: {
         allowNull: false,

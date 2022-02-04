@@ -2,8 +2,9 @@
 module.exports = (sequelize, DataTypes) => {
   const Ride = sequelize.define('Ride', {
     userId: DataTypes.INTEGER,
-    city: DataTypes.STRING,
+    location: DataTypes.STRING,
     name: DataTypes.STRING,
+    description: DataTypes.TEXT,
     price: DataTypes.DECIMAL,
     speed: DataTypes.INTEGER,
     travelType: DataTypes.STRING

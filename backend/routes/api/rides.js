@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', asyncHandler(async (req, res) => {
     // console.log('1******************************************************************************')
-    const rides = await db.Ride.findAll();
+    const rides = await db.Ride.findAll({ include: ['Images'] });
     // console.log(rides);
     return res.json(rides);
 }));

@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     endDate: DataTypes.DATE
   }, {});
   Booking.associate = function (models) {
-    Booking.hasOne(models.Ride, { foreignKey: "rideId" });
+    Booking.belongsTo(models.Ride, { foreignKey: "rideId" });
     Booking.belongsTo(models.User, { foreignKey: "userId" });
   };
   return Booking;

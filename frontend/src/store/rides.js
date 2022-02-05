@@ -1,4 +1,4 @@
-
+import { csrfFetch } from './csrf';
 
 const LOAD = 'rides/LOAD';
 const CREATE = 'rides/CREATE';
@@ -23,7 +23,8 @@ export const getRides = () => async (dispatch) => {
 }
 
 export const createRide = (payload) => async (dispatch) => {
-    const response = await fetch('/api/rides', {
+    console.log(JSON.stringify(payload))
+    const response = await csrfFetch('/api/rides', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

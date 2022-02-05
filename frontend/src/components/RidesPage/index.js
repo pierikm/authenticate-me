@@ -18,7 +18,7 @@ const Rides = () => {
         <>
             {rides.map((ride) => (
                 <div key={ride?.id}>
-                    <img src={ride?.Images[0].url} />
+                    <img src={ride.Images[0] && ride.Images[0].url} />
                     <h2>
                         {ride?.name}
                     </h2>

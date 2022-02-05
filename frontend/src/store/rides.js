@@ -27,7 +27,6 @@ const edit = (ride) => ({
 
 export const getSingleRide = (id) => async (dispatch) => {
     const response = await fetch(`/api/rides/${id}`);
-    console.log(response.ok, "**********************************")
     if (response.ok) {
         const ride = await response.json();
         dispatch(loadSingle(ride));
@@ -85,7 +84,6 @@ const ridesReducer = (state = {}, action) => {
         case LOAD_SINGLE:
             const singleState = { ...state };
             singleState[action.ride.id] = action.ride;
-            console.log(singleState, "***********************************************")
             return singleState;
         case EDIT:
             const editState = { ...state };

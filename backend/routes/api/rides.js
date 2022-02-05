@@ -3,7 +3,6 @@ const asyncHandler = require('express-async-handler');
 const csrf = require('csurf');
 
 const db = require('../../db/models');
-const { rideValidator } = require('../../utils/rideValidation')
 
 const csrfProtection = csrf({ cookie: true });
 const router = express.Router();

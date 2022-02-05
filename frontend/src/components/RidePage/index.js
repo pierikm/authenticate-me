@@ -1,19 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getSingleRide } from '../../store/rides';
 import EditRideForm from '../EditRidePage';
 
 const RidePage = () => {
+    const [showEdit, setShowEdit] = useState(false);
     const dispatch = useDispatch();
     const { rideId } = useParams();
     const ride = useSelector((state) => state.rides[rideId]);
+    const userId = useSelector((state) => state.session.user.id);
 
     useEffect(() => {
         dispatch(getSingleRide(rideId));
-    }, [dispatch])
+    }, [dispatch, rideId]);
+
     return (
         <>
+            <img alt={ride?.name} src={ride?.Images[0] ? ride.Images[0].url : "https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg"} />
             <h2>
                 {ride?.name}
             </h2>
@@ -26,8 +30,14 @@ const RidePage = () => {
             <div>
                 Ride Type: {ride?.travelType}
             </div>
+            <div>
+                Speed: {ride?.speed} mph
+            </div>
             <p>{ride?.description}</p>
-            <EditRideForm />
+            <button hidden={userId !== ride?.userId} onClick={() => setShowEdit((prevState) => !prevState)}>Edit Ride</button>
+            <div hidden={!showEdit}>
+                <EditRideForm />
+            </div>
         </>
     );
 }

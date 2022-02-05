@@ -1,10 +1,16 @@
 import { csrfFetch } from './csrf';
 
 const ADD = 'images/ADD';
+const REMOVE = 'images/REMOVE';
 
 const add = (image) => ({
     type: ADD,
     image
+});
+
+const remove = (imageId) => ({
+    type: REMOVE,
+    imageId
 });
 
 export const addImage = (payload) => async (dispatch) => {
@@ -18,6 +24,17 @@ export const addImage = (payload) => async (dispatch) => {
         dispatch(add(image));
         return image;
     }
+};
+
+export const deleteImage = (id) => async (dispatch) => {
+    const response = await csrfFetch(`/api/images/${id}`, {
+        method: 'DELETE',
+    })
+    if (response.ok) {
+        const imageId = await response.json();
+        dispatch(remove(imageId))
+        return imageId;
+    }
 }
 
 const imagesReducer = (state = {}, action) => {
@@ -26,6 +43,10 @@ const imagesReducer = (state = {}, action) => {
             const addState = { ...state };
             addState[action.image.id] = action.image;
             return addState;
+        case REMOVE:
+            const removeState = { ...state };
+            if (removeState[action.imageId]) delete removeState[action.imageId];
+            return removeState;
         default:
             return { ...state };
     }

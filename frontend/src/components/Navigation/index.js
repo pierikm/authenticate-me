@@ -30,6 +30,9 @@ function Navigation({ isLoaded }) {
             <li>
                 <NavLink exact to='/rides'>Rides</NavLink>
             </li>
+            <li>
+                <NavLink exact to='/rides/new'>Create a Ride</NavLink>
+            </li>
         </ul>
     );
 }

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getSingleRide } from '../../store/rides';
+import { getSingleRide, deleteRide } from '../../store/rides';
+import { deleteImage } from "../../store/images";
 import EditRideForm from '../EditRidePage';
 
 const RidePage = () => {
@@ -10,10 +11,18 @@ const RidePage = () => {
     const { rideId } = useParams();
     const ride = useSelector((state) => state.rides[rideId]);
     const userId = useSelector((state) => state.session.user.id);
+    const images = ride.Images;
 
     useEffect(() => {
         dispatch(getSingleRide(rideId));
     }, [dispatch, rideId]);
+
+    const handleDelete = () => {
+        images.forEach(async (image) => {
+            return await dispatch(deleteImage(image.id));
+        });
+        dispatch(deleteRide(rideId));
+    }
 
     return (
         <>
@@ -35,6 +44,7 @@ const RidePage = () => {
             </div>
             <p>{ride?.description}</p>
             <button hidden={userId !== ride?.userId} onClick={() => setShowEdit((prevState) => !prevState)}>Edit Ride</button>
+            <button hidden={userId !== ride?.userId} onClick={handleDelete}>Delete Ride</button>
             <div hidden={!showEdit}>
                 <EditRideForm />
             </div>

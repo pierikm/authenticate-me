@@ -30,4 +30,10 @@ router.put('/:id', csrfProtection, asyncHandler(async (req, res) => {
     return res.json(updatedRide);
 }));
 
+router.delete('/:id', csrfProtection, asyncHandler(async (req, res) => {
+    const rideId = Number(req.params.id);
+    db.Ride.destroy({ where: { id: rideId } });
+    return res.redirect(`/rides`);
+}))
+
 module.exports = router;

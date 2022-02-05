@@ -12,4 +12,10 @@ router.post('/', csrfProtection, asyncHandler(async (req, res) => {
     return res.json(image);
 }));
 
+router.delete('/:id', csrfProtection, asyncHandler(async (req, res) => {
+    const imageId = Number(req.params.id);
+    db.Image.destroy({ where: { id: imageId } });
+    return imageId;
+}));
+
 module.exports = router;

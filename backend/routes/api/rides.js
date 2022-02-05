@@ -2,14 +2,18 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 
 const db = require('../../db/models');
+const { rideValidator } = require('../../utils/rideValidation')
 
 const router = express.Router();
 
 router.get('/', asyncHandler(async (req, res) => {
-    // console.log('1******************************************************************************')
     const rides = await db.Ride.findAll({ include: ['Images'] });
-    // console.log(rides);
     return res.json(rides);
 }));
+
+router.post('/', asyncHandler(async (req, res) => {
+    const ride = await db.Ride.create(req.body);
+    return res.redirect(`${req.baseUrl}/${ride.id}`);
+}))
 
 module.exports = router;

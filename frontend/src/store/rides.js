@@ -10,8 +10,9 @@ const load = (rides) => ({
     rides
 })
 
-const loadSingle = (rides) => ({
-    type: LOAD_SINGLE
+const loadSingle = (ride) => ({
+    type: LOAD_SINGLE,
+    ride
 })
 
 const create = (ride) => ({
@@ -24,13 +25,13 @@ const edit = (ride) => ({
     ride
 })
 
-// export const getSingleRide = (id) => async (dispatch) => {
-//     const response = await fetch(`/api/rides/${id}`);
-//     if (response.ok) {
-//         const rides = await response.json();
-//         dispatch(loadSingle(rides));
-//     }
-// }
+export const getSingleRide = (id) => async (dispatch) => {
+    const response = await fetch(`/api/rides/${id}`);
+    if (response.ok) {
+        const ride = await response.json();
+        dispatch(loadSingle(ride));
+    }
+}
 
 export const getRides = () => async (dispatch) => {
     const response = await fetch('/api/rides');
@@ -74,14 +75,16 @@ const ridesReducer = (state = {}, action) => {
             action.rides.forEach(ride => {
                 loadState[ride.id] = ride;
             })
-            console.log(loadState);
+            // console.log(loadState);
             return loadState;
         case CREATE:
             const createState = { ...state };
             createState[action.ride.id] = action.ride;
             return createState;
         case LOAD_SINGLE:
-            return state;
+            const singleState = {};
+            singleState[action.ride.id] = action.ride;
+            return { ...state, ...singleState };
         // case EDIT:
         //     const editState = [...state];
         //     const editId = action.ride.id;
@@ -92,7 +95,7 @@ const ridesReducer = (state = {}, action) => {
         //     })
 
         default:
-            return state;
+            return { ...state };
     }
 }
 

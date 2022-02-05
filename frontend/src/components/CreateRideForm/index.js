@@ -38,9 +38,9 @@ const CreateRideForm = () => {
             travelType
         }
         const createdRide = await dispatch(createRide(payload))
-        if (createdRide) {
-            history.push(`/rides/${createdRide.id}`);
-        }
+        // if (createdRide) {
+        //     history.push(`/rides/${createdRide.id}`);
+        // }
     }
 
     return (

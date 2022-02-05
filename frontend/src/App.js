@@ -33,7 +33,7 @@ function App() {
           <Route exact path='/rides/:rideId'>
             <RidePage />
           </Route>
-          <Route path='/rides/new'>
+          <Route exact path='/rides/new'>
             <CreateRideForm />
           </Route>
         </Switch>

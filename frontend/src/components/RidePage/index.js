@@ -11,7 +11,7 @@ const RidePage = () => {
     const { rideId } = useParams();
     const ride = useSelector((state) => state.rides[rideId]);
     const userId = useSelector((state) => state.session.user.id);
-    const images = ride.Images;
+    const images = ride?.Images;
 
     useEffect(() => {
         dispatch(getSingleRide(rideId));

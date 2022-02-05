@@ -13,6 +13,12 @@ router.get('/', asyncHandler(async (req, res) => {
     return res.json(rides);
 }));
 
+// router.get('/:id', asyncHandler(async (req, res) => {
+//     const rideId = Number(req.params.id)
+//     const ride = await db.Ride.findByPk(rideId, { include: ['Images'] });
+//     return res.json(ride);
+// }));
+
 router.post('/', csrfProtection, asyncHandler(async (req, res) => {
     const ride = await db.Ride.create(req.body);
     return res.redirect(`/rides`);

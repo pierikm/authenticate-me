@@ -6,10 +6,10 @@ const Rides = () => {
     const dispatch = useDispatch();
 
     const rides = useSelector(state => {
-        return state.rides;
+        return Object.values(state.rides);
     })
 
-    console.log("rides: ", rides);
+    // console.log("rides: ", rides);
 
     useEffect(() => {
         dispatch(getRides());

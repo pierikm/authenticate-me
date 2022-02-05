@@ -6,6 +6,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Rides from "./components/RidesPage";
+import RidePage from "./components/RidePage";
 import CreateRideForm from './components/CreateRideForm';
 
 function App() {
@@ -28,6 +29,9 @@ function App() {
           </Route>
           <Route exact path='/rides'>
             <Rides />
+          </Route>
+          <Route exact path='/rides/:rideId'>
+            <RidePage />
           </Route>
           <Route path='/rides/new'>
             <CreateRideForm />

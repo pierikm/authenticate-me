@@ -16,13 +16,19 @@ router.get('/', asyncHandler(async (req, res) => {
 router.get('/:id', asyncHandler(async (req, res) => {
     const rideId = Number(req.params.id)
     const ride = await db.Ride.findByPk(rideId, { include: ['Images'] });
-    console.log(ride, '******************************************')
     return res.json(ride);
 }));
 
 router.post('/', csrfProtection, asyncHandler(async (req, res) => {
     const ride = await db.Ride.create(req.body);
-    return res.redirect(`/rides`);
-}))
+    return res.redirect(`/rides/${ride.id}`);
+}));
+
+router.put('/:id', csrfProtection, asyncHandler(async (req, res) => {
+    const rideId = Number(req.params.id)
+    const ride = await db.Ride.findByPk(rideId);
+    const updatedRide = await ride.update(req.body);
+    return res.json(updatedRide);
+}));
 
 module.exports = router;

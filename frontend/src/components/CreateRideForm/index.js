@@ -39,7 +39,7 @@ const CreateRideForm = () => {
         }
         const createdRide = await dispatch(createRide(payload))
         if (createdRide) {
-            history.push(`/rides`);
+            history.push(`/rides/${createdRide.id}`);
         }
     }
 

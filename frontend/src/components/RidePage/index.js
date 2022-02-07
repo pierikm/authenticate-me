@@ -4,15 +4,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { getSingleRide, deleteRide } from '../../store/rides';
 import { deleteImage } from "../../store/images";
 import EditRideForm from '../EditRidePage';
+import AddImgForm from "../AddImgForm";
 
 const RidePage = () => {
     const dispatch = useDispatch();
     const { rideId } = useParams();
     const userId = useSelector((state) => state.session.user.id);
     const ride = useSelector((state) => state.rides[rideId]);
+    const images = useSelector((state) => state.images);
     const [showEdit, setShowEdit] = useState(false);
+    const [showAddImg, setShowAddImg] = useState(false);
     const [imgKey, setImgKey] = useState(Date.now());
-    // let images = null;
 
     const history = useHistory();
     const redirect = () => history.replace('/rides')
@@ -23,7 +25,8 @@ const RidePage = () => {
 
     useEffect(() => {
         setImgKey(Date.now());
-    }, [ride]);
+        console.log('*******************set image key');
+    }, [images]);
 
     if (!ride) {
         return null;
@@ -41,6 +44,16 @@ const RidePage = () => {
         });
         dispatch(deleteRide(rideId));
         redirect();
+    }
+
+    const editRideClick = () => {
+        setShowEdit((prevState) => !prevState);
+        setShowAddImg(false);
+    }
+
+    const addImgClick = () => {
+        setShowEdit(false);
+        setShowAddImg((prevState) => !prevState);
     }
 
     return (
@@ -64,10 +77,14 @@ const RidePage = () => {
                 Speed: {ride?.speed} mph
             </div>
             <p>{ride?.description}</p>
-            <button hidden={userId !== ride?.userId} onClick={() => setShowEdit((prevState) => !prevState)}>Edit Ride</button>
+            <button hidden={userId !== ride?.userId} onClick={editRideClick}>Edit Ride</button>
             <button hidden={userId !== ride?.userId} onClick={handleDelete}>Delete Ride</button>
             <div hidden={!showEdit}>
                 <EditRideForm ride={ride} hideForm={() => setShowEdit(false)} />
+            </div>
+            <button hidden={userId !== ride?.userId} onClick={addImgClick}>Add a Pic</button>
+            <div hidden={!showAddImg}>
+                <AddImgForm rideId={rideId} hideForm={() => setShowAddImg(false)} />
             </div>
         </>
     );

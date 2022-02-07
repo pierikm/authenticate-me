@@ -1,25 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
 
-import { editRide, getSingleRide } from '../../store/rides';
-import { addImage } from '../../store/images';
-
-function isValidHttpUrl(string) {
-    let url;
-
-    try {
-        url = new URL(string);
-    } catch (_) {
-        return false;
-    }
-
-    return url.protocol === "http:" || url.protocol === "https:";
-}
+import { editRide } from '../../store/rides';
 
 const EditRideForm = ({ ride, hideForm }) => {
     const user = useSelector(state => state.session.user);
-    const { rideId } = useParams();
 
     const dispatch = useDispatch();
 
@@ -29,7 +14,6 @@ const EditRideForm = ({ ride, hideForm }) => {
     const [description, setDescription] = useState(ride?.description);
     const [speed, setSpeed] = useState(ride?.speed);
     const [travelType, setTravelType] = useState(ride?.travelType);
-    const [url, setUrl] = useState('');
 
     const typesOfTravel = [
         'Automobile',
@@ -51,14 +35,6 @@ const EditRideForm = ({ ride, hideForm }) => {
             speed,
             travelType
         };
-
-        if (isValidHttpUrl(url)) {
-            const imgPayload = {
-                rideId,
-                url
-            };
-            dispatch(addImage(imgPayload))
-        }
 
         const editedRide = await dispatch(editRide(payload, ride.id))
         if (editedRide) {
@@ -116,14 +92,6 @@ const EditRideForm = ({ ride, hideForm }) => {
                         <option key={type}>{type}</option>
                     ))}
                 </select>
-            </div>
-            <div>
-                <input
-                    type='text'
-                    placeholder="Image URL"
-                    value={url ? url : ''}
-                    onChange={(e) => setUrl(e.target.value)}
-                />
             </div>
             <button type="submit">Submit</button>
         </form>

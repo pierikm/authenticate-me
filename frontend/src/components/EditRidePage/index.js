@@ -17,16 +17,15 @@ function isValidHttpUrl(string) {
     return url.protocol === "http:" || url.protocol === "https:";
 }
 
-const EditRideForm = () => {
+const EditRideForm = ({ ride, hideForm }) => {
     const user = useSelector(state => state.session.user);
     const { rideId } = useParams();
-    const ride = useSelector(state => state.rides[rideId]);
-    const history = useHistory();
+    // const ride = useSelector(state => state.rides[rideId]);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getSingleRide(rideId));
-    }, [dispatch, rideId])
+    // useEffect(() => {
+    //     dispatch(getSingleRide(rideId));
+    // }, [dispatch, rideId])
 
     const [name, setName] = useState(ride?.name);
     const [location, setLocation] = useState(ride?.location);
@@ -67,7 +66,7 @@ const EditRideForm = () => {
 
         const editedRide = await dispatch(editRide(payload, ride.id))
         if (editedRide) {
-            history.push(`/rides/${editedRide.id}`);
+            hideForm();
         }
     }
 

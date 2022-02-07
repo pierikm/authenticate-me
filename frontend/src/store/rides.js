@@ -35,6 +35,7 @@ export const getSingleRide = (id) => async (dispatch) => {
     const response = await fetch(`/api/rides/${id}`);
     if (response.ok) {
         const ride = await response.json();
+        console.log(ride, "*******************store")
         dispatch(loadSingle(ride));
         return ride;
     }

@@ -6,12 +6,11 @@ import { deleteImage } from "../../store/images";
 import EditRideForm from '../EditRidePage';
 
 const RidePage = () => {
-    const [showEdit, setShowEdit] = useState(false);
     const dispatch = useDispatch();
     const { rideId } = useParams();
-    const ride = useSelector((state) => state.rides[rideId]);
     const userId = useSelector((state) => state.session.user.id);
-    const images = ride?.Images;
+    const ride = useSelector((state) => state.rides[rideId]);
+    const [showEdit, setShowEdit] = useState(false);
 
     const history = useHistory();
     const redirect = () => history.replace('/rides')
@@ -20,8 +19,18 @@ const RidePage = () => {
         dispatch(getSingleRide(rideId));
     }, [dispatch, rideId]);
 
+    if (!ride) {
+        return null;
+    }
+
+    const noImage = "https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg";
+
+    // useEffect(() => {
+    //     setImages(ride.Images)
+    // }, [ride]);
+
     const handleDelete = () => {
-        images.forEach(async (image) => {
+        ride.Images.forEach(async (image) => {
             return await dispatch(deleteImage(image.id));
         });
         dispatch(deleteRide(rideId));
@@ -30,7 +39,7 @@ const RidePage = () => {
 
     return (
         <>
-            <img alt={ride?.name} src={ride?.Images[0] ? ride?.Images[0].url : "https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg"} />
+            <img alt={ride?.name} src={ride.Images ? (ride.Images[0] ? ride.Images[0].url : noImage) : noImage} />
             <h2>
                 {ride?.name}
             </h2>
@@ -50,7 +59,7 @@ const RidePage = () => {
             <button hidden={userId !== ride?.userId} onClick={() => setShowEdit((prevState) => !prevState)}>Edit Ride</button>
             <button hidden={userId !== ride?.userId} onClick={handleDelete}>Delete Ride</button>
             <div hidden={!showEdit}>
-                <EditRideForm />
+                <EditRideForm ride={ride} hideForm={() => setShowEdit(false)} />
             </div>
         </>
     );

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getSingleRide, deleteRide } from '../../store/rides';
 import { deleteImage } from "../../store/images";
@@ -13,6 +13,9 @@ const RidePage = () => {
     const userId = useSelector((state) => state.session.user.id);
     const images = ride?.Images;
 
+    const history = useHistory();
+    const redirect = () => history.replace('/rides')
+
     useEffect(() => {
         dispatch(getSingleRide(rideId));
     }, [dispatch, rideId]);
@@ -22,11 +25,12 @@ const RidePage = () => {
             return await dispatch(deleteImage(image.id));
         });
         dispatch(deleteRide(rideId));
+        redirect();
     }
 
     return (
         <>
-            <img alt={ride?.name} src={ride?.Images[0] ? ride.Images[0].url : "https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg"} />
+            <img alt={ride?.name} src={ride?.Images[0] ? ride?.Images[0].url : "https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg"} />
             <h2>
                 {ride?.name}
             </h2>

@@ -20,7 +20,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
 router.post('/', csrfProtection, asyncHandler(async (req, res) => {
     const ride = await db.Ride.create(req.body);
-    return res.redirect(`/rides/${ride.id}`);
+    return res.json(ride);
 }));
 
 router.put('/:id', csrfProtection, asyncHandler(async (req, res) => {
@@ -33,7 +33,7 @@ router.put('/:id', csrfProtection, asyncHandler(async (req, res) => {
 router.delete('/:id', csrfProtection, asyncHandler(async (req, res) => {
     const rideId = Number(req.params.id);
     db.Ride.destroy({ where: { id: rideId } });
-    return res.redirect(`/rides`);
+    return res.json(rideId);
 }))
 
 module.exports = router;

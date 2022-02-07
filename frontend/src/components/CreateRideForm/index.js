@@ -6,7 +6,6 @@ import { createRide } from '../../store/rides';
 
 const CreateRideForm = () => {
     const user = useSelector(state => state.session.user);
-    const history = useHistory();
     const dispatch = useDispatch();
 
     const [name, setName] = useState('');
@@ -16,13 +15,15 @@ const CreateRideForm = () => {
     const [speed, setSpeed] = useState(0);
     const [travelType, setTravelType] = useState('');
 
+    const history = useHistory();
+    const redirect = (id) => history.replace(`/rides/${id}`);
+
     const typesOfTravel = [
         'Automobile',
         'Aircraft',
         'Watercraft',
         'Human-Powered',
         'Animal-Powered',
-        'Self-Powered',
         'Other'
     ]
 
@@ -38,9 +39,9 @@ const CreateRideForm = () => {
             travelType
         }
         const createdRide = await dispatch(createRide(payload))
-        // if (createdRide) {
-        //     history.push(`/rides/${createdRide.id}`);
-        // }
+        if (createdRide) {
+            redirect(createdRide.id);
+        }
     }
 
     return (

@@ -11,6 +11,8 @@ const RidePage = () => {
     const userId = useSelector((state) => state.session.user.id);
     const ride = useSelector((state) => state.rides[rideId]);
     const [showEdit, setShowEdit] = useState(false);
+    const [imgKey, setImgKey] = useState(Date.now());
+    // let images = null;
 
     const history = useHistory();
     const redirect = () => history.replace('/rides')
@@ -18,6 +20,10 @@ const RidePage = () => {
     useEffect(() => {
         dispatch(getSingleRide(rideId));
     }, [dispatch, rideId]);
+
+    useEffect(() => {
+        setImgKey(Date.now());
+    }, [ride]);
 
     if (!ride) {
         return null;
@@ -39,7 +45,9 @@ const RidePage = () => {
 
     return (
         <>
-            <img alt={ride?.name} src={ride.Images ? (ride.Images[0] ? ride.Images[0].url : noImage) : noImage} />
+            <div>
+                <img alt={ride?.name} key={imgKey} src={ride.Images ? (ride.Images[0] ? ride.Images[0].url : noImage) : noImage} />
+            </div>
             <h2>
                 {ride?.name}
             </h2>

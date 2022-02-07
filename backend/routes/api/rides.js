@@ -15,7 +15,6 @@ router.get('/', asyncHandler(async (req, res) => {
 router.get('/:id', asyncHandler(async (req, res) => {
     const rideId = Number(req.params.id)
     const ride = await db.Ride.findByPk(rideId, { include: ['Images'] });
-    console.log(ride, "**********************api")
     return res.json(ride);
 }));
 

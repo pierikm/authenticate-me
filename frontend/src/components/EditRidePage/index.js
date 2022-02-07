@@ -20,12 +20,8 @@ function isValidHttpUrl(string) {
 const EditRideForm = ({ ride, hideForm }) => {
     const user = useSelector(state => state.session.user);
     const { rideId } = useParams();
-    // const ride = useSelector(state => state.rides[rideId]);
-    const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     dispatch(getSingleRide(rideId));
-    // }, [dispatch, rideId])
+    const dispatch = useDispatch();
 
     const [name, setName] = useState(ride?.name);
     const [location, setLocation] = useState(ride?.location);

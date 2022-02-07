@@ -1,0 +1,94 @@
+* {
+    box-sizing: border-box;
+}
+
+.home-button-img {
+    width: 4rem;
+    background-color: white;
+    padding: 0.2rem;
+    border-radius: 50%;
+}
+
+.home-btn-rides-container {
+    display: flex;
+    align-items: center;
+}
+
+.rotate:hover{
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate{
+    to{ transform: rotate(360deg); }
+}
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.create-ride-link,
+.rides-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+    margin: 1rem;
+    padding: 0.5rem;
+    border: 2px solid white;
+    border-radius: 0.2rem;
+    height: 2.5rem;
+}
+
+.user-btn-text {
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+}
+
+.user-btn {
+    display: flex;
+    align-items: center;
+    margin: 1rem;
+    background-color: black;
+    border: 2px solid white;
+    border-radius: 0.2rem;
+    height: 2.5rem;
+    cursor: pointer;
+}
+
+.nav-bar-right {
+    display: flex;
+}
+
+.create-ride-container {
+    display: flex;
+    align-items: center;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 4rem;
+    right: 1rem;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 7rem;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+}
+
+.profile-dropdown > span {
+    padding-top: 0.2rem;
+}
+
+.logout-btn {
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 1px;
+    font-size: 1rem;
+    padding: 0.3rem;
+}
+
+li {
+    list-style-type: none;
+}

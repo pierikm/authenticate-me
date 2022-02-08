@@ -30,9 +30,6 @@ function App() {
           <Route exact path='/rides'>
             <Rides />
           </Route>
-          <Route exact path='/rides/new'>
-            <CreateRideForm />
-          </Route>
           <Route exact path='/rides/:rideId'>
             <RidePage />
           </Route>

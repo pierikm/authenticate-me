@@ -1,0 +1,33 @@
+input,
+#dollar-sign,
+#mph {
+    color: black;
+    font-size: 1rem;
+}
+
+
+
+.create-ride-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.25);
+    height: 50rem;
+    width: 100%
+}
+
+#price-input {
+    padding-left: 1rem;
+}
+
+.speed-container > span {
+    display: inline-block;
+    position: relative;
+    right: 4rem;
+}
+
+input {
+    width: 15rem;
+}

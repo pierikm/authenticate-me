@@ -28,7 +28,7 @@
     justify-content: space-between;
 }
 
-.create-ride-link,
+.create-ride-btn,
 .rides-link {
     display: flex;
     align-items: center;
@@ -37,6 +37,7 @@
     margin: 1rem;
     padding: 0.5rem;
     border: 2px solid white;
+    background-color: black;
     border-radius: 0.2rem;
     height: 2.5rem;
 }
@@ -61,7 +62,7 @@
     display: flex;
 }
 
-.create-ride-container {
+.create-ride-btn-container {
     display: flex;
     align-items: center;
 }
@@ -91,4 +92,18 @@
 
 li {
     list-style-type: none;
+}
+
+.create-ride-ele {
+    background-color: white;
+    position: absolute;
+}
+
+.create-ride-btn {
+    cursor: pointer;
+}
+
+.create-ride-btn,
+.rides-link {
+    white-space: nowrap;
 }

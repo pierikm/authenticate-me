@@ -5,7 +5,7 @@ import { createRide } from '../../store/rides';
 import './CreateRide.css';
 
 
-const CreateRideForm = () => {
+const CreateRideForm = ({ hideForm }) => {
     const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
 
@@ -47,6 +47,7 @@ const CreateRideForm = () => {
 
     return (
         <div className="create-ride-container">
+            <i className="fas fa-times fa-3x" onClick={() => hideForm()}></i>
             <h2 className="create-ride-title">Create a Ride</h2>
             <form className="create-ride-form" onSubmit={handleSubmit}>
                 <div className="name-container">
@@ -71,44 +72,35 @@ const CreateRideForm = () => {
                 </div>
                 <div className="price-container">
                     <label>Price per day</label>
-                    <span
-                        id="dollar-sign"
-                        style={{ position: 'relative', left: '15px' }}>
-                        $
-                    </span>
-                    <input
-                        id="price-input"
-                        type="number"
-                        placeholder="Price"
-                        required
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                    />
+                    <div id="price-input-container">
+                        <span id="dollar-sign">
+                            $
+                        </span>
+                        <input
+                            id="price-input"
+                            type="number"
+                            placeholder="Price"
+                            required
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                        />
+                    </div>
                 </div>
                 <div className="speed-container">
                     <label>Speed</label>
-                    <input
-                        type="number"
-                        placeholder="Speed"
-                        required
-                        value={speed}
-                        onChange={(e) => setSpeed(e.target.value)}
-                    />
-                    <span
-                        id="mph"
-                        style={{ position: 'relative', left: '15px' }}>
-                        mph
-                    </span>
-                </div>
-                <div className="tarvel-type-container">
-                    <select
-                        value={travelType}
-                        onChange={(e) => setTravelType(e.target.value)}>
-                        <option value={''}>Type of Ride</option>
-                        {typesOfTravel.map((type) => (
-                            <option key={type}>{type}</option>
-                        ))}
-                    </select>
+                    <div>
+                        <input
+                            type="number"
+                            placeholder="Speed"
+                            required
+                            value={speed}
+                            onChange={(e) => setSpeed(e.target.value)}
+                        />
+                        <span
+                            id="mph">
+                            mph
+                        </span>
+                    </div>
                 </div>
                 <div className="description-container">
                     <label>Description</label>
@@ -120,7 +112,20 @@ const CreateRideForm = () => {
                         onChange={(e) => setDescription(e.target.value)}
                     />
                 </div>
-                <button type="submit">Submit</button>
+                <div className="tarvel-type-container">
+                    <select
+                        value={travelType}
+                        onChange={(e) => setTravelType(e.target.value)}>
+                        <option value={''}>Type of Ride</option>
+                        {typesOfTravel.map((type) => (
+                            <option key={type}>{type}</option>
+                        ))}
+                    </select>
+                </div>
+                <div className="button-container">
+                    <button type="submit">Submit</button>
+                    <button>Close</button>
+                </div>
             </form>
         </div>
     )

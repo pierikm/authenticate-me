@@ -1,21 +1,47 @@
 input,
+textarea,
 #dollar-sign,
 #mph {
-    color: black;
+    /* color: black; */
     font-size: 1rem;
+    /* background-color: 2px solid rgb(50, 50, 50); */
 }
 
+input[type="text"],
+input[type="number"],
+textarea {
+    background-color: rgb(50,50,50);
+    border: 1px solid rgb(50,50,50);
+    padding: 0.3rem;
+    border-radius: 0.1rem;
+}
 
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    /* background-color: rgb(50,50,50); */
+    border: 1px solid rgb(150, 150, 150);
+}
+
+#mph {
+    position: relative;
+    right: 4rem;
+}
 
 .create-ride-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: fixed;
+    top: 6rem;
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.25);
-    height: 50rem;
-    width: 100%
+    background-color: rgba(10, 10, 10, 0.9);
+    height: fit-content;
+    /* padding-bottom: 2rem; */
+    /* padding-top: 2rem; */
+    width: 100%;
+    /* height: 100%; */
 }
 
 #price-input {
@@ -28,6 +54,55 @@ input,
     right: 4rem;
 }
 
-input {
-    width: 15rem;
+input, textarea, select {
+    width: 20rem;
+}
+
+select {
+    background-color: rgb(50,50,50);
+    padding: 0.3rem;
+    font-size: 1rem;
+    border: 1px solid rgb(50, 50, 50);
+    border-radius: 2px;
+}
+
+form > div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+}
+
+#dollar-sign {
+    position: relative;
+    left: 6px;
+    /* color: black; */
+    z-index: 2;
+}
+
+#price-input {
+    position: relative;
+    right: 9px;
+}
+
+.create-ride-form > div {
+    padding-left: 9px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 31px;
+    margin-bottom: 2rem;
+}
+
+.fa-times {
+    position: absolute;
+    right: 3rem;
+    top: 1rem;
+    border: 0;
+    background-color: rgba(10, 10, 10, 0);
+    cursor: pointer;
+    /* height: 10rem; */
+    /* width: 10rem; */
 }

@@ -7,6 +7,11 @@
     background-color: white;
     padding: 0.2rem;
     border-radius: 50%;
+    margin-left: 0.5rem;
+}
+
+.home-button-img:hover {
+    border: 0px;
 }
 
 .home-btn-rides-container {
@@ -26,36 +31,56 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-bottom: 0.2rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid darkgray;
 }
 
 .create-ride-btn,
-.rides-link {
+.rides-link,
+.login-btn,
+.signup-btn {
     display: flex;
     align-items: center;
     text-decoration: none;
     font-size: 1.5rem;
     margin: 1rem;
-    padding: 0.5rem;
-    border: 2px solid white;
-    background-color: black;
+    padding: 1rem;
+    border: 2px solid rgb(50, 50, 50);
+    background-color:rgb(50, 50, 50);
     border-radius: 0.2rem;
-    height: 2.5rem;
+    height: 3rem;
+}
+
+.signup-btn {
+    margin-left: 0rem;
 }
 
 .user-btn-text {
     font-size: 1.5rem;
-    margin-left: 0.5rem;
+    margin-left: 1rem;
 }
 
 .user-btn {
     display: flex;
     align-items: center;
     margin: 1rem;
-    background-color: black;
-    border: 2px solid white;
+    margin-left: 0;
+    background-color: rgb(50, 50, 50);
+    border: 2px solid rgb(50, 50, 50);
     border-radius: 0.2rem;
-    height: 2.5rem;
+    height: 3rem;
     cursor: pointer;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.create-ride-btn:hover,
+.user-btn:hover,
+.rides-link:hover,
+.login-btn:hover,
+.signup-btn:hover {
+    border: 2px solid white;
 }
 
 .nav-bar-right {
@@ -69,13 +94,19 @@
 
 .profile-dropdown {
     position: absolute;
-    top: 4rem;
-    right: 1rem;
-    background-color: rgba(0, 0, 0, 0.8);
-    width: 7rem;
+    top: 5rem;
+    right: 0.8rem;
+    background-color: rgba(20, 20, 20, 0.8);
+    width: 8rem;
     display: flex;
     flex-direction: column;
-    padding: 0.5rem;
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid rgba(20, 20, 20, 0.8);
+}
+
+.profile-dropdown:hover {
+    border: 1px solid rgba(50, 50, 50, 0.8);
 }
 
 .profile-dropdown > span {
@@ -83,11 +114,16 @@
 }
 
 .logout-btn {
-    background-color: black;
+    background-color: rgb(50,50,50);
     border: 1px solid white;
     border-radius: 1px;
     font-size: 1rem;
     padding: 0.3rem;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    transform: scale(1.05);
 }
 
 li {
@@ -95,7 +131,7 @@ li {
 }
 
 .create-ride-ele {
-    background-color: white;
+    /* background-color: white; */
     position: absolute;
 }
 
@@ -106,4 +142,13 @@ li {
 .create-ride-btn,
 .rides-link {
     white-space: nowrap;
+}
+
+.hide {
+    display: none;
+}
+
+#home-button:hover {
+    /* border: none !important; */
+    outline: 0 !important;
 }

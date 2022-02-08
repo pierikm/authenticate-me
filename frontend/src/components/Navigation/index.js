@@ -8,7 +8,11 @@ import './Navigation.css';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
-    const [showCreate, setShowCreate] = useState(false);
+    const [showCreate, setShowCreate] = useState("hide");
+
+    const hideForm = () => {
+        setShowCreate('hide');
+    }
 
     let sessionLinks;
     if (sessionUser) {
@@ -17,11 +21,14 @@ function Navigation({ isLoaded }) {
                 <span className='create-ride-btn-container'>
                     <button
                         className="create-ride-btn"
-                        onClick={() => setShowCreate((prevState) => !prevState)}>
+                        onClick={() => setShowCreate((prevState) => prevState === '' ? 'hide' : '')}>
                         Create a Ride
                     </button>
                 </span>
-                <ProfileButton className="profile-btn session-link" user={sessionUser} />
+                <ProfileButton
+                    hideForm={hideForm}
+                    className="profile-btn session-link"
+                    user={sessionUser} />
             </>
         );
     } else {
@@ -37,17 +44,27 @@ function Navigation({ isLoaded }) {
         <>
             <div className='nav-bar'>
                 <span className='home-btn-rides-container'>
-                    <NavLink exact to="/"><img className='home-button-img rotate' src="../../images/wheel.png" /></NavLink>
-                    <NavLink className="rides-link" exact to='/rides'>Find a Ride</NavLink>
+                    <NavLink exact to="/">
+                        <img
+                            id="home-button"
+                            className='home-button-img rotate'
+                            alt='Home'
+                            src="../../images/wheel.png"
+                            onClick={() => hideForm()} />
+                    </NavLink>
+                    <NavLink
+                        className="rides-link"
+                        exact to='/rides'
+                        onClick={() => hideForm()}>
+                        Find a Ride
+                    </NavLink>
                 </span>
                 <span className='nav-bar-right'>
                     {isLoaded && sessionLinks}
                 </span>
             </div>
-            <div
-                hidden={!showCreate}
-                className="create-ride-container">
-                <CreateRideForm className='create-ride-ele' />
+            <div className={`create-ride-main-container ${showCreate}`}>
+                <CreateRideForm hideForm={hideForm} className='create-ride-ele' />
             </div>
         </>
     );

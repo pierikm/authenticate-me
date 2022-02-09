@@ -11,7 +11,7 @@ const rideValidator = [
         .withMessage("Location can be no more than 100 characters"),
     check('name')
         .notEmpty()
-        .withMessage("Pleae name your ride")
+        .withMessage("Please name your ride")
         .isLength({ max: 255 })
         .withMessage("Name can be no more than 255 characters"),
     check('description')

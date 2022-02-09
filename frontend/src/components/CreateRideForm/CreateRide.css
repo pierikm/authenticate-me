@@ -130,3 +130,8 @@ form > div {
 .fa-times:hover {
     transform: scale(1.1);
 }
+
+#create-errors-list > * {
+    color: red;
+    margin-top: 0.5rem;
+}

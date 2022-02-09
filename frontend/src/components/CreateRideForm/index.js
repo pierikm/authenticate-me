@@ -15,6 +15,7 @@ const CreateRideForm = ({ hideForm }) => {
     const [description, setDescription] = useState('');
     const [speed, setSpeed] = useState(0);
     const [travelType, setTravelType] = useState('');
+    const [errors, setErrors] = useState([]);
 
     const history = useHistory();
     const redirect = (id) => history.replace(`/rides/${id}`);
@@ -39,12 +40,33 @@ const CreateRideForm = ({ hideForm }) => {
             speed,
             travelType
         }
-        const createdRide = await dispatch(createRide(payload))
-        if (createdRide) {
-            hideForm()
-            reset();
-            redirect(createdRide.id);
+
+        console.log(errors)
+        if (checkInputs()) {
+
+            const createdRide = await dispatch(createRide(payload))
+            if (createdRide) {
+                hideForm()
+                reset();
+                redirect(createdRide.id);
+            }
         }
+    }
+
+    const checkInputs = () => {
+        const errorsArr = []
+        if (name.length < 1) errorsArr.push("Please provide a neme.");
+        if (name.length > 100) errorsArr.push("Name can be no more than 255 characters.");
+        if (description.length < 1) errorsArr.push('Describe your ride.')
+        if (description.length > 1000) errorsArr.push("Describe your ride with less than 1001 characters.");
+        if (price < 0) errorsArr.push("You can't pay people to take your ride.");
+        if (price > 9999999999.99) errorsArr.push('No ride costs that much on this app.');
+        if (speed < 1) errorsArr.push("Rides with no speed aren't really rides.");
+        if (speed > 670600000) errorsArr.push("Contact the Nobel Foundation about acheiving faster than light travel before posting your ride.");
+        if (travelType === '') errorsArr.push('Please select how your ride goes.')
+        // console.log(errorsArr);
+        setErrors(errorsArr);
+        return (errors.length > 0)
     }
 
     const reset = () => {
@@ -58,6 +80,9 @@ const CreateRideForm = ({ hideForm }) => {
 
     return (
         <div className="create-ride-container">
+            <ul id="create-errors-list">
+                {errors.map((error) => <li key={error}>{error}</li>)}
+            </ul>
             <i className="fas fa-times fa-3x" onClick={() => hideForm()}></i>
             <h2 className="create-ride-title">Create a Ride</h2>
             <form className="create-ride-form" onSubmit={handleSubmit}>

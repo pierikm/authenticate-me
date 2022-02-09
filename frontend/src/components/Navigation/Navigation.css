@@ -27,6 +27,11 @@
     to{ transform: rotate(360deg); }
 }
 
+#navbar-title {
+    font-size: 2.5rem;
+    font-family: 'Merriweather', serif;
+}
+
 .nav-bar {
     display: flex;
     align-items: center;
@@ -146,7 +151,11 @@ li {
 }
 
 .create-ride-btn,
-.rides-link {
+.rides-link,
+.user-btn-text,
+#navbar-title,
+.login-btn,
+.signup-btn {
     white-space: nowrap;
 }
 

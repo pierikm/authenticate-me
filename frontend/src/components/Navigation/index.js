@@ -59,6 +59,7 @@ function Navigation({ isLoaded }) {
                         Find a Ride
                     </NavLink>
                 </span>
+                <span id="navbar-title">Deals on Wheels</span>
                 <span className='nav-bar-right'>
                     {isLoaded && sessionLinks}
                 </span>

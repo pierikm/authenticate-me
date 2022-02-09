@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
 import { editRide } from '../../store/rides';
+// import '../RidePage/Ride.css';
 
 const EditRideForm = ({ ride, hideForm }) => {
     const user = useSelector(state => state.session.user);
@@ -43,9 +44,9 @@ const EditRideForm = ({ ride, hideForm }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="edit-ride-form" onSubmit={handleSubmit}>
             <div>
-
+                <label>Name</label>
                 <input
                     type='text'
                     placeholder="Name"
@@ -54,6 +55,7 @@ const EditRideForm = ({ ride, hideForm }) => {
                 />
             </div>
             <div>
+                <label>Location</label>
                 <input
                     type='text'
                     placeholder="Location"
@@ -62,22 +64,37 @@ const EditRideForm = ({ ride, hideForm }) => {
                 />
             </div>
             <div>
-                <input
-                    type="number"
-                    placeholder="Price"
-                    value={price ? price : ''}
-                    onChange={(e) => setPrice(e.target.value)}
-                />
+                <label>Price per day</label>
+                <div id="price-input-container">
+                    <span id="dollar-sign">
+                        $
+                    </span>
+                    <input
+                        id="price-input"
+                        type="number"
+                        placeholder="Price"
+                        value={price ? price : ''}
+                        onChange={(e) => setPrice(e.target.value)}
+                    />
+                </div>
+            </div>
+            <div className="edit-speed-container">
+                <label>Speed</label>
+                <div>
+                    <input
+                        type="number"
+                        placeholder="Speed"
+                        value={speed ? speed : ''}
+                        onChange={(e) => setSpeed(e.target.value)}
+                    />
+                    <span
+                        id="mph">
+                        mph
+                    </span>
+                </div>
             </div>
             <div>
-                <input
-                    type="number"
-                    placeholder="Speed"
-                    value={speed ? speed : ''}
-                    onChange={(e) => setSpeed(e.target.value)}
-                />
-            </div>
-            <div>
+                <label>Description</label>
                 <textarea
                     rows='5'
                     placeholder="Description"
@@ -93,7 +110,7 @@ const EditRideForm = ({ ride, hideForm }) => {
                     ))}
                 </select>
             </div>
-            <button type="submit">Submit</button>
+            <button className="edit-submit-btn ride-btn" type="submit">Submit</button>
         </form>
     )
 }

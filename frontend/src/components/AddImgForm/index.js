@@ -37,8 +37,8 @@ const AddImgForm = ({ rideId, hideForm }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
+        <form className="add-pic-form" onSubmit={handleSubmit}>
+            <div className="add-img-input">
                 <input
                     type='text'
                     placeholder="Image URL"
@@ -46,7 +46,7 @@ const AddImgForm = ({ rideId, hideForm }) => {
                     onChange={(e) => setUrl(e.target.value)}
                 />
             </div>
-            <button type="submit">Submit</button>
+            <button className="pic-submit-btn ride-btn" type="submit">Submit Pic</button>
         </form>
     )
 }

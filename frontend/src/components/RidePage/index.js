@@ -5,6 +5,7 @@ import { getSingleRide, deleteRide } from '../../store/rides';
 import { deleteImage } from "../../store/images";
 import EditRideForm from '../EditRidePage';
 import AddImgForm from "../AddImgForm";
+import './Ride.css';
 
 const RidePage = () => {
     const sessionUser = useSelector(state => state.session.user);
@@ -62,36 +63,68 @@ const RidePage = () => {
     }
 
     return (
-        <>
-            <div>
-                <img alt={ride?.name} key={imgKey} src={ride.Images ? (ride.Images[0] ? ride.Images[0].url : noImage) : noImage} />
+        <div className="ride-page-container">
+            <div className="img-scroller snaps-inline">
+                {ride.Images && ride.Images[0] ?
+                    (ride?.Images.map((image) => (
+                        <div key={`${image.id}${imgKey}`} className="img-element">
+                            <img alt={ride?.name} src={image.url} />
+                        </div>
+                    ))) :
+                    (<div className="img-element">
+                        <img alt={ride?.name} src={noImage} />
+                    </div>)
+                }
             </div>
-            <h2>
-                {ride?.name}
-            </h2>
-            <div>
-                Location: {ride?.location}
+            <div className="ride-details-container">
+                <h2 className="ride-title ride-dtl">
+                    {ride?.name}
+                </h2>
+                <div className="ride-location ride-dtl">
+                    Location: {ride?.location}
+                </div>
+                <div className="ride-price ride-dtl">
+                    Price: {`$${ride?.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} / day`}
+                </div>
+                <div className="ride-type ride-dtl">
+                    Ride Type: {ride?.travelType}
+                </div>
+                <div className="ride-speed ride-dtl">
+                    Speed: {ride?.speed} mph
+                </div>
+                <p className="ride-description ride-dtl">
+                    {ride?.description}
+                </p>
             </div>
-            <div>
-                Price: {`$${ride?.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} / day`}
+            <div className="ride-btn-container">
+                <div className="edit-add-container">
+                    <button
+                        className="edit-ride-btn ride-btn"
+                        hidden={userId !== ride?.userId}
+                        onClick={editRideClick}>
+                        Edit Ride
+                    </button>
+                    <button
+                        className="add-pic-btn ride-btn"
+                        hidden={userId !== ride?.userId}
+                        onClick={addImgClick}>
+                        Add a Pic
+                    </button>
+                    <div hidden={!showEdit}>
+                        <EditRideForm ride={ride} hideForm={() => setShowEdit(false)} />
+                    </div>
+                    <div hidden={!showAddImg}>
+                        <AddImgForm rideId={rideId} hideForm={() => setShowAddImg(false)} />
+                    </div>
+                </div>
+                <button
+                    className="delete-ride-btn ride-btn"
+                    hidden={userId !== ride?.userId}
+                    onClick={handleDelete}>
+                    Delete Ride
+                </button>
             </div>
-            <div>
-                Ride Type: {ride?.travelType}
-            </div>
-            <div>
-                Speed: {ride?.speed} mph
-            </div>
-            <p>{ride?.description}</p>
-            <button hidden={userId !== ride?.userId} onClick={editRideClick}>Edit Ride</button>
-            <button hidden={userId !== ride?.userId} onClick={handleDelete}>Delete Ride</button>
-            <div hidden={!showEdit}>
-                <EditRideForm ride={ride} hideForm={() => setShowEdit(false)} />
-            </div>
-            <button hidden={userId !== ride?.userId} onClick={addImgClick}>Add a Pic</button>
-            <div hidden={!showAddImg}>
-                <AddImgForm rideId={rideId} hideForm={() => setShowAddImg(false)} />
-            </div>
-        </>
+        </ div>
     );
 }
 

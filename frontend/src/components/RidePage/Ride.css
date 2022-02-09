@@ -1,0 +1,99 @@
+.img-scroller {
+    display:grid;
+    gap: 1rem;
+    grid-auto-flow:column;
+    grid-auto-columns: 80%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    width: 50rem;
+    /* scrollbar-width: thick; */
+}
+
+.img-element {
+    padding: 1rem;
+}
+
+.img-element > img {
+    inline-size: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.snaps-inline {
+    scroll-snap-type: inline mandatory;
+    /* scroll-padding-inline: 3rem; */
+}
+
+.snaps-inline > * {
+    scroll-snap-align: center;
+}
+
+.ride-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ride-details-container {
+    width: 50rem;
+}
+
+.ride-btn-container {
+    width: 50rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ride-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border: 2px solid rgb(50, 50, 50);
+    background-color:rgb(50, 50, 50);
+    border-radius: 0.2rem;
+    height: 3rem;
+    width: 12rem;
+}
+
+.ride-dtl {
+    padding: 0.2rem 0 0.2rem;
+}
+
+.ride-btn:hover {
+    border: 2px solid rgb(150,150,150);
+}
+
+.edit-ride-form > * {
+    margin: 0.5rem 0 0.5rem;
+}
+
+.edit-ride-form > * > label {
+    margin-bottom: 0.2rem;
+}
+
+.edit-ride-form > button {
+    margin-top: 1rem;
+}
+
+.add-img-input {
+    margin-top: 1rem;
+}
+.add-img-input > input {
+    width: 30rem;
+}
+
+.add-pic-form,
+.edit-ride-form {
+    border: 1px solid grey;
+    border-radius: 0.5rem;
+    padding: 0.2rem 0.5rem 0.2rem;
+}
+
+.ride-title {
+    font-size: 2rem;
+    font-family: 'Merriweather', serif;
+}

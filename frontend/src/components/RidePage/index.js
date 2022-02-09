@@ -23,6 +23,9 @@ const RidePage = () => {
 
     useEffect(() => {
         dispatch(getSingleRide(rideId));
+        console.log("user id", userId);
+        console.log("ride userId", ride?.userId)
+        console.log(userId !== ride?.userId)
     }, [dispatch, rideId]);
 
     useEffect(() => {
@@ -96,20 +99,26 @@ const RidePage = () => {
                     {ride?.description}
                 </p>
             </div>
-            <div className="ride-btn-container">
+            <div className="ride-btn-container" hidden={userId !== ride?.userId}>
                 <div className="edit-add-container">
-                    <button
-                        className="edit-ride-btn ride-btn"
-                        hidden={userId !== ride?.userId}
-                        onClick={editRideClick}>
-                        Edit Ride
-                    </button>
-                    <button
-                        className="add-pic-btn ride-btn"
-                        hidden={userId !== ride?.userId}
-                        onClick={addImgClick}>
-                        Add a Pic
-                    </button>
+                    {
+                        userId === ride?.userId &&
+                        <button
+                            className="edit-ride-btn ride-btn"
+                            // hidden={userId !== ride?.userId}
+                            onClick={editRideClick}>
+                            Edit Ride
+                        </button>
+                    }
+                    {
+                        userId === ride?.userId &&
+                        <button
+                            className="add-pic-btn ride-btn"
+                            // hidden={userId !== ride?.userId}
+                            onClick={addImgClick}>
+                            Add a Pic
+                        </button>
+                    }
                     <div hidden={!showEdit}>
                         <EditRideForm ride={ride} hideForm={() => setShowEdit(false)} />
                     </div>
@@ -117,12 +126,14 @@ const RidePage = () => {
                         <AddImgForm rideId={rideId} hideForm={() => setShowAddImg(false)} />
                     </div>
                 </div>
-                <button
-                    className="delete-ride-btn ride-btn"
-                    hidden={userId !== ride?.userId}
-                    onClick={handleDelete}>
-                    Delete Ride
-                </button>
+                {userId === ride?.userId &&
+                    <button
+                        className="delete-ride-btn ride-btn"
+                        // hidden={userId !== ride?.userId}
+                        onClick={handleDelete}>
+                        Delete Ride
+                    </button>
+                }
             </div>
         </ div>
     );

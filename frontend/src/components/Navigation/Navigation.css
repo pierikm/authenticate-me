@@ -34,6 +34,7 @@
     padding-bottom: 0.2rem;
     margin-bottom: 1rem;
     border-bottom: 1px solid darkgray;
+    background-color: rgb(15, 15, 15);
 }
 
 .create-ride-btn,
@@ -80,7 +81,7 @@
 .rides-link:hover,
 .login-btn:hover,
 .signup-btn:hover {
-    border: 2px solid white;
+    border: 2px solid rgb(150,150,150);
 }
 
 .nav-bar-right {
@@ -96,8 +97,8 @@
     position: absolute;
     top: 5rem;
     right: 0.8rem;
-    background-color: rgba(20, 20, 20, 0.8);
-    width: 8rem;
+    background-color: rgba(10, 10, 10, 0.9);
+    /* width: 12rem; */
     display: flex;
     flex-direction: column;
     padding: 1rem;
@@ -115,7 +116,7 @@
 
 .logout-btn {
     background-color: rgb(50,50,50);
-    border: 1px solid white;
+    border: 1px solid rgb(150, 150, 150);
     border-radius: 1px;
     font-size: 1rem;
     padding: 0.3rem;
@@ -123,7 +124,8 @@
 }
 
 .logout-btn:hover {
-    transform: scale(1.05);
+    /* transform: scale(1.05); */
+    border: 1px solid white;
 }
 
 li {
@@ -151,4 +153,8 @@ li {
 #home-button:hover {
     /* border: none !important; */
     outline: 0 !important;
+}
+
+#dropdown-email {
+    margin-bottom: 0.5rem;
 }

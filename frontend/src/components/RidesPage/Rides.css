@@ -1,0 +1,36 @@
+.rides-container {
+    margin: 1rem;
+    display: flex;
+    /* height: 20rem; */
+    border-bottom: 1px solid white;
+}
+
+.rides-img {
+    /* height: 20rem; */
+    width: 20rem;
+    /* object-fit: contain; */
+    margin: 1rem;
+}
+
+.rides-img:hover {
+    transform: scale(1.05);
+    outline: 0 !important;
+}
+
+.rides-description-container {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* height: 5rem; */
+    /* width: 40rem; */
+}
+
+.rides-details-container {
+    margin-left: 1rem;
+}
+
+.rides-description {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }

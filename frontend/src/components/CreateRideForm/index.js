@@ -17,7 +17,7 @@ const CreateRideForm = ({ hideForm }) => {
     const [travelType, setTravelType] = useState('');
 
     const history = useHistory();
-    const redirect = (id) => history.replace(`/rides`);
+    const redirect = (id) => history.replace(`/rides/${id}`);
 
     const typesOfTravel = [
         'Automobile',
@@ -41,8 +41,19 @@ const CreateRideForm = ({ hideForm }) => {
         }
         const createdRide = await dispatch(createRide(payload))
         if (createdRide) {
+            hideForm()
+            reset();
             redirect(createdRide.id);
         }
+    }
+
+    const reset = () => {
+        setName('');
+        setLocation('');
+        setPrice(0);
+        setDescription('');
+        setSpeed(0);
+        setTravelType('');
     }
 
     return (
@@ -122,9 +133,10 @@ const CreateRideForm = ({ hideForm }) => {
                         ))}
                     </select>
                 </div>
-                <div className="button-container">
-                    <button type="submit">Submit</button>
-                    <button>Close</button>
+                <div className="create-btn-container">
+                    <button id="create-btn" type="submit">
+                        Submit
+                    </button>
                 </div>
             </form>
         </div>

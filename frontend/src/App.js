@@ -6,7 +6,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Rides from "./components/RidesPage";
-import CreateRideForm from './components/CreateRideForm';
+// import CreateRideForm from './components/CreateRideForm';
 import RidePage from "./components/RidePage";
 
 function App() {

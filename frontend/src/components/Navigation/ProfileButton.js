@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 
 function ProfileButton({ user, hideForm }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
-    // const user = useSelector(state => state.session.user);
+    const history = useHistory();
 
     const openMenu = () => {
         if (showMenu) return;

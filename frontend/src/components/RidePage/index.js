@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getSingleRide, deleteRide } from '../../store/rides';
 import { deleteImage } from "../../store/images";
@@ -7,9 +7,10 @@ import EditRideForm from '../EditRidePage';
 import AddImgForm from "../AddImgForm";
 
 const RidePage = () => {
+    const sessionUser = useSelector(state => state.session.user);
     const dispatch = useDispatch();
     const { rideId } = useParams();
-    const userId = useSelector((state) => state.session.user.id);
+    const userId = useSelector((state) => state.session.user?.id);
     const ride = useSelector((state) => state.rides[rideId]);
     const images = useSelector((state) => state.images);
     const [showEdit, setShowEdit] = useState(false);
@@ -25,7 +26,6 @@ const RidePage = () => {
 
     useEffect(() => {
         setImgKey(Date.now());
-        console.log('*******************set image key');
     }, [images]);
 
     if (!ride) {
@@ -54,6 +54,11 @@ const RidePage = () => {
     const addImgClick = () => {
         setShowEdit(false);
         setShowAddImg((prevState) => !prevState);
+    }
+    if (!sessionUser) {
+        return (
+            <Redirect to="/login" />
+        )
     }
 
     return (

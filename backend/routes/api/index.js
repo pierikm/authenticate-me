@@ -3,7 +3,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const ridesRouter = require('./rides.js');
 const imagesRouter = require('./images.js');
-const bookingsRouter = require('./bookings.js');
+// const bookingsRouter = require('./bookings.js');
 
 router.use('/session', sessionRouter);
 
@@ -13,7 +13,7 @@ router.use('/rides', ridesRouter);
 
 router.use('/images', imagesRouter);
 
-router.use('/bookings', bookingsRouter);
+// router.use('/bookings', bookingsRouter);
 
 router.post('/test', (req, res) => {
     res.json({ requestBody: req.body });

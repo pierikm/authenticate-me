@@ -97,3 +97,21 @@
     font-size: 2rem;
     font-family: 'Merriweather', serif;
 }
+
+.edit-ride-form {
+    position: relative;
+}
+
+#edit-errors-list > * {
+    color: lightcoral;
+    padding: 0.5rem;
+    border-bottom: 1px solid grey;
+    font-size: 1rem;
+}
+
+#edit-errors-list {
+    position: absolute;
+    left: 22rem;
+    top: 1rem;
+    width: 25rem;
+}

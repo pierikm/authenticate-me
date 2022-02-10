@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createRide } from '../../store/rides';
@@ -16,9 +16,31 @@ const CreateRideForm = ({ hideForm }) => {
     const [speed, setSpeed] = useState(0);
     const [travelType, setTravelType] = useState('');
     const [errors, setErrors] = useState([]);
+    const [showErrors, setShowErrors] = useState(false);
+    const checkInputs = () => {
+        const errorsArr = []
+        if (name.length < 2) errorsArr.push("Name: Must be more than 1 character.");
+        if (name.length > 255) errorsArr.push("Name: Can be no more than 255 characters.");
+        if (location.length < 2) errorsArr.push("Location: Must be more than 1 character.");
+        if (location.length > 100) errorsArr.push("Name: Can be no more than 100 characters.");
+        if (description.length < 2) errorsArr.push('Description: Describe your ride in greater detail.')
+        if (description.length > 1000) errorsArr.push("Description: Describe your ride with less than 1001 characters.");
+        if (price < 0) errorsArr.push("Price: You can't pay people to take your ride.");
+        if (price > 9999999999.99) errorsArr.push('Price: No ride costs that much on this app.');
+        if (speed < 1) errorsArr.push("Speed: Rides with no speed aren't really rides.");
+        if (speed > 670600000) errorsArr.push("Speed: Contact the Nobel Foundation about acheiving faster than light travel before posting your ride.");
+        if (travelType === '') errorsArr.push('Type of Ride: Please select how your ride goes.')
+
+        setErrors(errorsArr);
+        // return (errors.length > 0)
+    }
 
     const history = useHistory();
     const redirect = (id) => history.replace(`/rides/${id}`);
+
+    useEffect(() => {
+        checkInputs();
+    }, [name, location, price, description, speed, travelType])
 
     const typesOfTravel = [
         'Automobile',
@@ -41,32 +63,17 @@ const CreateRideForm = ({ hideForm }) => {
             travelType
         }
 
-        console.log(errors)
-        if (checkInputs()) {
-
+        // console.log(errors)
+        setShowErrors(true);
+        if (!errors.length) {
             const createdRide = await dispatch(createRide(payload))
             if (createdRide) {
                 hideForm()
+                setShowErrors(false);
                 reset();
                 redirect(createdRide.id);
             }
         }
-    }
-
-    const checkInputs = () => {
-        const errorsArr = []
-        if (name.length < 1) errorsArr.push("Please provide a neme.");
-        if (name.length > 100) errorsArr.push("Name can be no more than 255 characters.");
-        if (description.length < 1) errorsArr.push('Describe your ride.')
-        if (description.length > 1000) errorsArr.push("Describe your ride with less than 1001 characters.");
-        if (price < 0) errorsArr.push("You can't pay people to take your ride.");
-        if (price > 9999999999.99) errorsArr.push('No ride costs that much on this app.');
-        if (speed < 1) errorsArr.push("Rides with no speed aren't really rides.");
-        if (speed > 670600000) errorsArr.push("Contact the Nobel Foundation about acheiving faster than light travel before posting your ride.");
-        if (travelType === '') errorsArr.push('Please select how your ride goes.')
-        // console.log(errorsArr);
-        setErrors(errorsArr);
-        return (errors.length > 0)
     }
 
     const reset = () => {
@@ -80,18 +87,18 @@ const CreateRideForm = ({ hideForm }) => {
 
     return (
         <div className="create-ride-container">
-            <ul id="create-errors-list">
-                {errors.map((error) => <li key={error}>{error}</li>)}
-            </ul>
             <i className="fas fa-times fa-3x" onClick={() => hideForm()}></i>
             <h2 className="create-ride-title">Create a Ride</h2>
             <form className="create-ride-form" onSubmit={handleSubmit}>
+                {showErrors && <ul id="create-errors-list">
+                    {errors.map((error) => <li key={error}>{error}</li>)}
+                </ul>}
                 <div className="name-container">
                     <label>Name</label>
                     <input
                         type='text'
                         placeholder="Name"
-                        required
+                        // required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
@@ -101,7 +108,7 @@ const CreateRideForm = ({ hideForm }) => {
                     <input
                         type='text'
                         placeholder="Location"
-                        required
+                        // required
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
                     />
@@ -116,7 +123,7 @@ const CreateRideForm = ({ hideForm }) => {
                             id="price-input"
                             type="number"
                             placeholder="Price"
-                            required
+                            // required
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                         />
@@ -128,7 +135,7 @@ const CreateRideForm = ({ hideForm }) => {
                         <input
                             type="number"
                             placeholder="Speed"
-                            required
+                            // required
                             value={speed}
                             onChange={(e) => setSpeed(e.target.value)}
                         />
@@ -143,7 +150,7 @@ const CreateRideForm = ({ hideForm }) => {
                     <textarea
                         placeholder="Description"
                         rows="8"
-                        required
+                        // required
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />

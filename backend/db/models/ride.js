@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   Ride.associate = function (models) {
     Ride.hasMany(models.Review, { foreignKey: "rideId" });
     Ride.hasMany(models.Image, { foreignKey: "rideId" });
-    Ride.hasOne(models.Booking, { foreignKey: "rideId" });
+    Ride.hasMany(models.Booking, { foreignKey: "rideId" });
     Ride.belongsTo(models.User, { foreignKey: "userId" });
   };
   return Ride;

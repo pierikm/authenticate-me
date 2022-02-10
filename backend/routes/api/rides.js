@@ -53,7 +53,7 @@ router.get('/', asyncHandler(async (req, res) => {
 
 router.get('/:id', asyncHandler(async (req, res) => {
     const rideId = Number(req.params.id)
-    const ride = await db.Ride.findByPk(rideId, { include: ['Images'] });
+    const ride = await db.Ride.findByPk(rideId, { include: ['Images', 'Bookings'] });
     return res.json(ride);
 }));
 

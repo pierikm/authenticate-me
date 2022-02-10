@@ -134,7 +134,7 @@ const RidePage = () => {
                         </button>
                     }
                     <div hidden={!showBook}>
-                        <AddBookingForm rideId={rideId} userId={userId} hideForm={() => setShowBook(false)} />
+                        <AddBookingForm rideId={rideId} userId={userId} bookings={ride?.Bookings} hideForm={() => setShowBook(false)} />
                     </div>
                     <div hidden={!showEdit}>
                         <EditRideForm ride={ride} hideForm={() => setShowEdit(false)} />

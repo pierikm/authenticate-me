@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { addBooking } from "../../store/bookings";
 import './AddBooking.css';
 
@@ -11,15 +11,35 @@ const AddBookingForm = ({ hideForm, userId, rideId }) => {
     const [endDate, setEndDate] = useState(new Date());
     const [errors, setErrors] = useState([]);
     const [showErrors, setShowErrors] = useState(false);
+    const bookings = useSelector(state => Object.values(state.rides[rideId].Bookings))
+
+    const checkDates = () => {
+        // const bookingsArr = (bookings ? Object.values(bookings) : []);
+        let goodDate = true;
+
+        bookings.forEach((booking) => {
+            const start1 = new Date(booking.startDate);
+            const end1 = new Date(booking.endDate);
+            const start2 = new Date(startDate);
+            const end2 = new Date(endDate);
+
+            if (start2 > start1 && start2 < end1) goodDate = false //2 starts in 1
+            if (end2 > start1 && end2 < end1) goodDate = false  //2 ends in 1
+            if (start2 < start1 && end2 > end1) goodDate = false //1 inside 2
+        });
+        return goodDate;
+    }
 
     const checkInputs = () => {
+        const oneDay = 86400000;
         const errorsArr = [];
-        const today = new Date();
+        const today = new Date(Date.now() - oneDay);
         const d1 = new Date(startDate);
         const d2 = new Date(endDate);
 
         if (today > d1) errorsArr.push("Start: Cannot be before today.");
-        if (d1 > d2) errorsArr.push("End: Cannot be before start date.")
+        if (d1 > d2) errorsArr.push("End: Cannot be before start date.");
+        if (!checkDates()) errorsArr.push("Ride already booked for this date")
 
         setErrors(errorsArr);
     }
@@ -45,7 +65,7 @@ const AddBookingForm = ({ hideForm, userId, rideId }) => {
 
         setShowErrors(true);
         if (!errors.length) {
-            const newBooking = await dispatch(addBooking(payload));
+            const newBooking = await dispatch(addBooking(payload, userId));
             if (newBooking) {
                 setShowErrors(false);
                 reset();

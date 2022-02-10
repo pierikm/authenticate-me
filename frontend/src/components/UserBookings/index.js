@@ -19,6 +19,8 @@ const UserBookings = () => {
         dispatch(getRides())
     }, [])
 
+    // console.log(rides);
+
     const formatDateString = (date) => {
         const dateObject = new Date(date);
         const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(dateObject)
@@ -40,7 +42,7 @@ const UserBookings = () => {
                 return (
                     <div key={booking.id}>
                         <NavLink to={`/rides/${booking.rideId}`}>
-                            {rides[booking?.rideId]?.name}
+                            {rides[booking?.rideId - 1]?.name}
                         </NavLink>
                         <div>from: {startDate}</div>
                         <div>to: {endDate}</div>

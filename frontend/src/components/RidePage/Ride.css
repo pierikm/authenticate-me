@@ -57,6 +57,7 @@
     border-radius: 0.2rem;
     height: 3rem;
     width: 12rem;
+    cursor: pointer;
 }
 
 .ride-dtl {

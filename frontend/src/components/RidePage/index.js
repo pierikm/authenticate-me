@@ -5,6 +5,7 @@ import { getSingleRide, deleteRide } from '../../store/rides';
 import { deleteImage } from "../../store/images";
 import EditRideForm from '../EditRidePage';
 import AddImgForm from "../AddImgForm";
+import AddBookingForm from "../AddBookingForm";
 import './Ride.css';
 
 const RidePage = () => {
@@ -14,6 +15,7 @@ const RidePage = () => {
     const userId = useSelector((state) => state.session.user?.id);
     const ride = useSelector((state) => state.rides[rideId]);
     const images = useSelector((state) => state.images);
+    const [showBook, setShowBook] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [showAddImg, setShowAddImg] = useState(false);
     const [imgKey, setImgKey] = useState(Date.now());
@@ -23,9 +25,9 @@ const RidePage = () => {
 
     useEffect(() => {
         dispatch(getSingleRide(rideId));
-        console.log("user id", userId);
-        console.log("ride userId", ride?.userId)
-        console.log(userId !== ride?.userId)
+        // console.log("user id", userId);
+        // console.log("ride userId", ride?.userId)
+        // console.log(userId !== ride?.userId)
     }, [dispatch, rideId]);
 
     useEffect(() => {
@@ -48,6 +50,10 @@ const RidePage = () => {
         });
         dispatch(deleteRide(rideId));
         redirect();
+    }
+
+    const bookRideClick = () => {
+        setShowBook((prevState) => !prevState);
     }
 
     const editRideClick = () => {
@@ -102,6 +108,14 @@ const RidePage = () => {
             <div className="ride-btn-container" hidden={userId !== ride?.userId}>
                 <div className="edit-add-container">
                     {
+                        userId !== ride?.userId &&
+                        <button
+                            className="book-ride-btn ride-btn"
+                            onClick={bookRideClick}>
+                            Book this Ride
+                        </button>
+                    }
+                    {
                         userId === ride?.userId &&
                         <button
                             className="edit-ride-btn ride-btn"
@@ -119,6 +133,9 @@ const RidePage = () => {
                             Add a Pic
                         </button>
                     }
+                    <div hidden={!showBook}>
+                        <AddBookingForm rideId={rideId} userId={userId} hideForm={() => setShowBook(false)} />
+                    </div>
                     <div hidden={!showEdit}>
                         <EditRideForm ride={ride} hideForm={() => setShowEdit(false)} />
                     </div>

@@ -1,0 +1,63 @@
+#add-booking-btn {
+    width: 10rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.2rem;
+    /* margin-bottom: 0.5rem; */
+    /* margin-left: 0; */
+    background-color: rgb(50, 50, 50);
+    border: 2px solid rgb(50, 50, 50);
+    border-radius: 0.2rem;
+    height: 3rem;
+    cursor: pointer;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+#add-booking-btn:hover {
+    border: 2px solid rgb(150,150,150);
+}
+
+.date-input {
+    width: 10rem;
+    font-size: 1rem;
+    background-color: rgb(50,50,50);
+    border: 1px solid rgb(50,50,50);
+    padding: 0.3rem;
+    border-radius: 0.1rem;
+    cursor: pointer;
+}
+
+.date-input:focus {
+    border: 1px solid rgb(150, 150, 150);
+}
+
+.add-booking-form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid grey;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0 0.6rem;
+}
+
+.add-booking-form > div > label {
+    margin-bottom: 0.2rem;
+}
+
+#booking-errors-list {
+    position: absolute;
+    left: 12rem;
+    /* top: 1rem; */
+    width: 18rem;
+}
+
+#booking-errors-list > * {
+    color: lightcoral;
+    padding: 0.5rem;
+    border-bottom: 1px solid grey;
+    font-size: 1rem;
+}

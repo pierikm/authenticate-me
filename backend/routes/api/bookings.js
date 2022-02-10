@@ -10,6 +10,11 @@ const router = express.Router();
 router.post('/', csrfProtection, asyncHandler(async (req, res) => {
     const booking = await db.Booking.create(req.body);
     return res.json(booking);
+}));
+
+router.get('/', csrfProtection, asyncHandler(async (req, res) => {
+    const bookings = await db.Booking.findAll({ include: ['Rides'] })
+    return res.json(bookings);
 }))
 
 module.exports = router;

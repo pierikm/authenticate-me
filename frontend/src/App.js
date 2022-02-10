@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import Rides from "./components/RidesPage";
 // import CreateRideForm from './components/CreateRideForm';
 import RidePage from "./components/RidePage";
+import UserBookings from "./components/UserBookings";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route exact path='/rides/:rideId'>
             <RidePage />
+          </Route>
+          <Route path='/users/:userId'>
+            <UserBookings />
           </Route>
         </Switch>
       )}

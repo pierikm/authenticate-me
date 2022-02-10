@@ -110,7 +110,7 @@
     /* width: 12rem; */
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    padding: 0.5rem;
     border-radius: 4px;
     border: 1px solid rgba(20, 20, 20, 0.8);
 }
@@ -123,16 +123,31 @@
     padding-top: 0.2rem;
 }
 
-.logout-btn {
+.logout-btn,
+.bookings-btn {
     background-color: rgb(50,50,50);
     border: 1px solid rgb(150, 150, 150);
-    border-radius: 1px;
+    border-radius: 3px;
     font-size: 1rem;
+    height: 2rem;
     padding: 0.3rem;
+    margin: 0.3rem;
     cursor: pointer;
+    text-decoration: none;
 }
 
-.logout-btn:hover {
+.bookings-btn {
+    display:inline-block
+}
+
+.profile-drop-btns {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logout-btn:hover,
+.bookings-btn:hover {
     /* transform: scale(1.05); */
     border: 1px solid white;
 }
@@ -169,5 +184,5 @@ li {
 }
 
 #dropdown-email {
-    margin-bottom: 0.5rem;
+    margin: 0.5rem;
 }

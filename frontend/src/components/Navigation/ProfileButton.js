@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 
 function ProfileButton({ user, hideForm }) {
@@ -43,7 +43,8 @@ function ProfileButton({ user, hideForm }) {
                 <div className="profile-dropdown">
                     {/* <span>{user.username}</span> */}
                     <span id="dropdown-email">{user.email}</span>
-                    <span>
+                    <span className="profile-drop-btns">
+                        <NavLink className="bookings-btn" to={`/users/${user?.id}/bookings`}>Bookings</NavLink>
                         <button className="logout-btn" onClick={logout}>Log Out</button>
                     </span>
                 </div>

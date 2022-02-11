@@ -24,7 +24,7 @@ const UserBookings = () => {
     const formatDateString = (date) => {
         const dateObject = new Date(date);
         const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(dateObject)
-        const day = dateObject.getDay();
+        const day = dateObject.getDate();
         const year = dateObject.getFullYear();
 
         return `${month} ${day}, ${year}`;

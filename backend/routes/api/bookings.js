@@ -11,7 +11,7 @@ const router = express.Router();
 router.delete('/:id', csrfProtection, asyncHandler(async (req, res) => {
     const id = Number(req.params.id);
     db.Booking.destroy({ where: { id } });
-    return id;
+    return res.json(id);
 }))
 
 module.exports = router;

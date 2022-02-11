@@ -14,9 +14,9 @@ const add = (booking) => ({
     booking
 });
 
-const remove = (bookingId) => ({
+const remove = (id) => ({
     type: REMOVE,
-    bookingId
+    id
 });
 
 export const loadBookings = (userId) => async (dispatch) => {
@@ -66,6 +66,10 @@ const bookingsReducer = (state = {}, action) => {
             const addState = { ...state };
             addState[action.booking.id] = action.booking;
             return addState;
+        case REMOVE:
+            const removeState = { ...state }
+            if (removeState[action.id]) delete removeState[action.id];
+            return removeState;
         default:
             return { ...state };
     }

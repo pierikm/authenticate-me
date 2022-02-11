@@ -28,7 +28,7 @@ const RidePage = () => {
         // console.log("user id", userId);
         // console.log("ride userId", ride?.userId)
         // console.log(userId !== ride?.userId)
-    }, [dispatch, rideId]);
+    }, [dispatch, rideId, showBook]);
 
     useEffect(() => {
         setImgKey(Date.now());

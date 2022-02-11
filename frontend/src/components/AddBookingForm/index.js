@@ -11,7 +11,12 @@ const AddBookingForm = ({ hideForm, userId, rideId }) => {
     const [endDate, setEndDate] = useState(new Date());
     const [errors, setErrors] = useState([]);
     const [showErrors, setShowErrors] = useState(false);
-    const bookings = useSelector(state => Object.values(state.rides[rideId].Bookings))
+    const bookings = useSelector(state => {
+        if (state.rides[rideId].Bookings) {
+            return Object.values(state.rides[rideId].Bookings)
+        }
+        else return [];
+    })
 
     const checkDates = () => {
         // const bookingsArr = (bookings ? Object.values(bookings) : []);
@@ -23,9 +28,9 @@ const AddBookingForm = ({ hideForm, userId, rideId }) => {
             const start2 = new Date(startDate);
             const end2 = new Date(endDate);
 
-            if (start2 > start1 && start2 < end1) goodDate = false //2 starts in 1
-            if (end2 > start1 && end2 < end1) goodDate = false  //2 ends in 1
-            if (start2 < start1 && end2 > end1) goodDate = false //1 inside 2
+            if (start2 >= start1 && start2 <= end1) goodDate = false //2 starts in 1
+            if (end2 >= start1 && end2 <= end1) goodDate = false  //2 ends in 1
+            if (start2 <= start1 && end2 >= end1) goodDate = false //1 inside 2
         });
         return goodDate;
     }
@@ -72,7 +77,6 @@ const AddBookingForm = ({ hideForm, userId, rideId }) => {
                 hideForm();
             }
         }
-
     };
 
     return (

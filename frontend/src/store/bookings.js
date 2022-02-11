@@ -42,6 +42,17 @@ export const addBooking = (payload, userId) => async (dispatch) => {
     }
 };
 
+export const removeBooking = (id) => async (dispatch) => {
+    const response = await csrfFetch(`/api/bookings/${id}`, {
+        method: 'DELETE'
+    });
+    if (response.ok) {
+        // const rideId = await response.json();
+        dispatch(remove(id))
+        return id;
+    }
+}
+
 const bookingsReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD:

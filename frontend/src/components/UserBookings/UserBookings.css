@@ -1,0 +1,55 @@
+.bookings-container {
+    margin: 1rem;
+    margin-left: 2rem
+}
+
+.bookings-title {
+    padding-top: 1rem;
+    font-size: 2rem;
+}
+
+.booking-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    border: 1px solid gray;
+    border-radius: 0.2rem;
+}
+
+.dlt-booking-btn {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+    /* margin: 1rem; */
+    padding: 1.5rem;
+    margin-right: 2rem;
+    border: 2px solid rgb(50, 50, 50);
+    background-color:rgb(50, 50, 50);
+    border-radius: 0.2rem;
+    height: 3rem;
+    cursor: pointer;
+}
+
+.dlt-booking-btn:hover {
+    border: 2px solid rgb(150,150,150);
+}
+
+.booking-name {
+    font-size: 2rem;
+    padding-bottom: 0.5rem;
+    font-family: 'Merriweather', serif;
+}
+
+.booking-name:hover {
+    color: rgb(200,200,200);
+}
+
+.booking-dtls-container > div {
+    margin: 0.2rem 0 0.2rem;
+    font-size: 1.5rem;
+}

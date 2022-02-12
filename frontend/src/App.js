@@ -10,6 +10,7 @@ import Rides from "./components/RidesPage";
 // import CreateRideForm from './components/CreateRideForm';
 import RidePage from "./components/RidePage";
 import UserBookings from "./components/UserBookings";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,9 @@ function App() {
           </Route>
           <Route path='/users/:userId'>
             <UserBookings />
+          </Route>
+          <Route>
+            <PageNotFound />
           </Route>
         </Switch>
       )}

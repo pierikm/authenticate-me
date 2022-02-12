@@ -39,7 +39,7 @@ const images = [
   },
   {
     rideId: 3,
-    url: 'https://static.wikia.nocookie.net/middle-earth-film-saga/images/1/1a/Fellbeast.png/revision/latest?cb=20161104005132',
+    url: 'https://artfiles.alphacoders.com/133/thumb-1920-133317.jpg',
     createdAt: new Date(),
     updatedAt: new Date()
   },

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { NavLink, Route, Switch } from "react-router-dom";
 import SplashPage from "./components/SplashPage";
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
@@ -43,6 +43,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      {/* <NavLink id="about-link" to="https://github.com/pierikm/deals-on-wheels">About</NavLink> */}
     </>
   );
 }

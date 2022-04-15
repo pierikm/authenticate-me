@@ -108,12 +108,12 @@ const RidePage = () => {
             <div className="ride-btn-container" hidden={userId !== ride?.userId}>
                 <div className="edit-add-container">
                     {
-                        userId !== 1 && (userId !== ride?.userId &&
+                        userId !== ride?.userId &&
                             <button
                                 className="book-ride-btn ride-btn"
                                 onClick={bookRideClick}>
                                 Book this Ride
-                            </button>)
+                            </button>
                     }
                     {
                         userId === ride?.userId &&

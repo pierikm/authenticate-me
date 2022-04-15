@@ -19,12 +19,11 @@ function Navigation({ isLoaded }) {
         sessionLinks = (
             <>
                 <span className='create-ride-btn-container'>
-                    {sessionUser?.id !== 1 &&
-                        <button
-                            className="create-ride-btn"
-                            onClick={() => setShowCreate((prevState) => prevState === '' ? 'hide' : '')}>
-                            Create a Ride
-                        </button>}
+                    <button
+                        className="create-ride-btn"
+                        onClick={() => setShowCreate((prevState) => prevState === '' ? 'hide' : '')}>
+                        Create a Ride
+                    </button>
                 </span>
                 <ProfileButton
                     hideForm={hideForm}

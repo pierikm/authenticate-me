@@ -13,7 +13,8 @@ router.get('/', asyncHandler(async (req, res) => {
     const reviews = await db.Review.findAll({
         where: {
             rideId: rideId
-        }
+        },
+        include: ['Users']
     });
     return res.json(reviews);
 }));

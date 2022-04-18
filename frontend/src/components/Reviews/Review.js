@@ -1,10 +1,11 @@
-function Review(review) {
+function Review({ review }) {
+    
     return (
         <>
-            <div>{review.ratig}</div>
+            <div>{review.rating}</div>
             <div>{review.review}</div>
         </>
     );
 }
 
-export default Reviews;
+export default Review;

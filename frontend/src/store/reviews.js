@@ -26,9 +26,7 @@ const del = (rideId) => ({
 })
 
 export const getReviews = (rideId) => async (dispatch) => {
-    const response = await fetch('/api/reviews', {
-        body: JSON.stringify({ 'rideId': rideId })
-    });
+    const response = await fetch(`/api/rides/${rideId}/reviews`);
     if (response.ok) {
         const reviews = await response.json();
         dispatch(load(reviews));

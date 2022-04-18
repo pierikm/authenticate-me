@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useHistory, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getSingleRide, deleteRide } from '../../store/rides';
+import { deleteRide } from '../../store/rides';
+import { getReviews } from "../../store/reviews";
 import { deleteImage } from "../../store/images";
 import EditRideForm from '../EditRidePage';
 import AddImgForm from "../AddImgForm";
@@ -29,15 +30,17 @@ const RidePage = () => {
         setImgKey(Date.now());
     }, [images]);
 
+    useEffect(() => {
+        (async () => {
+            await dispatch(getReviews(rideId));
+        })();
+    }, [dispatch]);
+
     if (!ride) {
         return null;
     }
 
     const noImage = "https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg";
-
-    // useEffect(() => {
-    //     setImages(ride.Images)
-    // }, [ride]);
 
     const handleDelete = async () => {
         ride.Images.forEach(async (image) => {

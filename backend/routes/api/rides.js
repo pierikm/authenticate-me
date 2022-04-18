@@ -47,7 +47,7 @@ const rideValidator = [
 ]
 
 router.get('/', asyncHandler(async (req, res) => {
-    const rides = await db.Ride.findAll({ include: ['Images', 'Reviews'] });
+    const rides = await db.Ride.findAll({ include: ['Images'] });
     return res.json(rides);
 }));
 
@@ -55,6 +55,18 @@ router.get('/:id', asyncHandler(async (req, res) => {
     const rideId = Number(req.params.id)
     const ride = await db.Ride.findByPk(rideId, { include: ['Images', 'Bookings', 'Reviews'] });
     return res.json(ride);
+}));
+
+router.get('/:id/reviews', asyncHandler(async (req, res) => {
+    // console.log("*************IN RIDES/REVIEWS")
+    const rideId = Number(req.params.id)
+    const reviews = await db.Review.findAll({
+        where: {
+            rideId: rideId
+        },
+        include: ['User']
+    });
+    return res.json(reviews);
 }));
 
 router.post('/', rideValidator, csrfProtection, asyncHandler(async (req, res) => {

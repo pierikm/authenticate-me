@@ -6,7 +6,7 @@ import { createReview } from '../../store/reviews';
 
 function ReviewForm() {
     const [rating, setRating] = useState('1');
-    const [review, setReview] = useState('');
+    const [content, setContent] = useState('');
     const userId = useSelector(state => state.session.user.id);
     const { rideId } = useParams()
     const dispatch = useDispatch();
@@ -16,7 +16,7 @@ function ReviewForm() {
         const payload = {
             userId,
             rideId: Number(rideId),
-            review,
+            review: content,
             rating: Number(rating)
         }
         console.log(payload);
@@ -38,8 +38,8 @@ function ReviewForm() {
                 </select>
                 <textarea
                     type='textarea'
-                    value={review}
-                    onChange={(e) => setReview(e.target.value)} />
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)} />
                 <button type="submit">Submit</button>
             </form>
         </>

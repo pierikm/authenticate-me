@@ -25,4 +25,17 @@ router.post('/', csrfProtection, asyncHandler(async (req, res) => {
     return res.json(review);
 }));
 
+router.put('/:id', csrfProtection, asyncHandler(async (req, res) => {
+    const id = Number(req.params.id)
+    const review = await db.Review.findByPk(id, { include: ['User'] });
+    const updatedReview = await review.update(req.body);
+    return res.json(updatedReview);
+}));
+
+router.delete('/:id', csrfProtection, asyncHandler(async (req, res) => {
+    const id = Number(req.params.id);
+    db.Review.destroy({ where: { id } });
+    return res.json(id);
+}));
+
 module.exports = router;

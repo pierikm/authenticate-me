@@ -15,14 +15,14 @@ const create = (review) => ({
     review
 })
 
-const edit = (ride) => ({
+const edit = (review) => ({
     type: EDIT,
-    ride
+    review
 })
 
-const del = (rideId) => ({
+const del = (id) => ({
     type: DELETE,
-    rideId
+    id
 })
 
 export const getReviews = (rideId) => async (dispatch) => {
@@ -47,27 +47,27 @@ export const createReview = (payload) => async (dispatch) => {
     }
 }
 
-export const editRide = (payload, id) => async (dispatch) => {
-    const response = await csrfFetch(`/api/rides/${id}`, {
+export const editReview = (payload, id) => async (dispatch) => {
+    const response = await csrfFetch(`/api/reviews/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
     });
     if (response.ok) {
-        const editRide = await response.json();
-        dispatch(edit(editRide));
-        return editRide;
+        const review = await response.json();
+        dispatch(edit(review));
+        return review;
     }
 }
 
-export const deleteRide = (id) => async (dispatch) => {
-    const response = await csrfFetch(`/api/rides/${id}`, {
+export const deleteReview = (id) => async (dispatch) => {
+    const response = await csrfFetch(`/api/reviews/${id}`, {
         method: 'DELETE',
     })
     if (response.ok) {
-        const rideId = await response.json();
-        dispatch(del(rideId))
-        return rideId;
+        const reviewId = await response.json();
+        dispatch(del(reviewId))
+        return reviewId;
     }
 }
 
@@ -85,11 +85,11 @@ const reviewsReducer = (state = {}, action) => {
             return createState;
         case EDIT:
             const editState = { ...state };
-            editState[action.ride.id] = action.ride;
+            editState[action.review.id] = action.review;
             return editState;
         case DELETE:
             const removeState = { ...state }
-            if (removeState[action.rideId]) delete removeState[action.rideId]
+            if (removeState[action.id]) delete removeState[action.id]
             return removeState;
         default:
             return { ...state };

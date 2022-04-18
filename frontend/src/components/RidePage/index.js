@@ -6,6 +6,8 @@ import { deleteImage } from "../../store/images";
 import EditRideForm from '../EditRidePage';
 import AddImgForm from "../AddImgForm";
 import AddBookingForm from "../AddBookingForm";
+import Reviews from "../Reviews";
+import ReviewForm from "../Reviews/ReviewForm";
 import './Ride.css';
 
 const RidePage = () => {
@@ -24,13 +26,6 @@ const RidePage = () => {
     const redirect = () => history.replace('/rides')
 
     useEffect(() => {
-        dispatch(getSingleRide(rideId));
-        // console.log("user id", userId);
-        // console.log("ride userId", ride?.userId)
-        // console.log(userId !== ride?.userId)
-    }, [dispatch, rideId, showBook]);
-
-    useEffect(() => {
         setImgKey(Date.now());
     }, [images]);
 
@@ -44,11 +39,11 @@ const RidePage = () => {
     //     setImages(ride.Images)
     // }, [ride]);
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
         ride.Images.forEach(async (image) => {
-            return await dispatch(deleteImage(image.id));
+            await dispatch(deleteImage(image.id));
         });
-        dispatch(deleteRide(rideId));
+        await dispatch(deleteRide(rideId));
         redirect();
     }
 
@@ -109,11 +104,11 @@ const RidePage = () => {
                 <div className="edit-add-container">
                     {
                         userId !== ride?.userId &&
-                            <button
-                                className="book-ride-btn ride-btn"
-                                onClick={bookRideClick}>
-                                Book this Ride
-                            </button>
+                        <button
+                            className="book-ride-btn ride-btn"
+                            onClick={bookRideClick}>
+                            Book this Ride
+                        </button>
                     }
                     {
                         userId === ride?.userId &&
@@ -152,6 +147,8 @@ const RidePage = () => {
                     </button>
                 }
             </div>
+            <ReviewForm />
+            <Reviews />
         </ div>
     );
 }

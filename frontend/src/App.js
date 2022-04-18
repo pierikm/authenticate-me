@@ -5,6 +5,7 @@ import SplashPage from "./components/SplashPage";
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
+import { getRides } from "./store/rides";
 import Navigation from "./components/Navigation";
 import Rides from "./components/RidesPage";
 // import CreateRideForm from './components/CreateRideForm';
@@ -17,6 +18,7 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(getRides());
   }, [dispatch]);
 
   return (

@@ -15,9 +15,9 @@ const Rides = () => {
 
     // console.log("rides: ", rides);
 
-    useEffect(() => {
-        dispatch(getRides());
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(getRides());
+    // }, [dispatch])
     return (
         <>
             {rides.map((ride) => (

@@ -5,19 +5,14 @@ const CREATE = 'reviews/CREATE';
 const EDIT = 'reviews/EDIT';
 const DELETE = 'reviews/DELETE';
 
-const load = (rides) => ({
+const load = (reviews) => ({
     type: LOAD,
-    rides
+    reviews
 })
 
-const loadSingle = (ride) => ({
-    type: LOAD_SINGLE,
-    ride
-})
-
-const create = (ride) => ({
+const create = (review) => ({
     type: CREATE,
-    ride
+    review
 })
 
 const edit = (ride) => ({
@@ -26,13 +21,13 @@ const edit = (ride) => ({
 })
 
 const del = (rideId) => ({
-    type: REMOVE,
+    type: DELETE,
     rideId
 })
 
 export const getReviews = (rideId) => async (dispatch) => {
-    const response = await fetch('/api/rides', {
-        body: JSON.stringify({'rideId': rideId})
+    const response = await fetch('/api/reviews', {
+        body: JSON.stringify({ 'rideId': rideId })
     });
     if (response.ok) {
         const reviews = await response.json();
@@ -41,16 +36,16 @@ export const getReviews = (rideId) => async (dispatch) => {
     }
 }
 
-export const createRide = (payload) => async (dispatch) => {
-    const response = await csrfFetch('/api/rides', {
+export const createReview = (payload) => async (dispatch) => {
+    const response = await csrfFetch('/api/reviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
     });
     if (response.ok) {
-        const newRide = await response.json();
-        dispatch(create(newRide));
-        return newRide;
+        const review = await response.json();
+        dispatch(create(review));
+        return review;
     }
 }
 
@@ -73,32 +68,28 @@ export const deleteRide = (id) => async (dispatch) => {
     })
     if (response.ok) {
         const rideId = await response.json();
-        dispatch(remove(rideId))
+        dispatch(del(rideId))
         return rideId;
     }
 }
 
-const ridesReducer = (state = {}, action) => {
+const reviewsReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD:
             const loadState = {};
-            action.rides.forEach(ride => {
-                loadState[ride.id] = ride;
+            action.reviews.forEach(review => {
+                loadState[review.id] = review;
             })
             return loadState;
         case CREATE:
             const createState = { ...state };
-            createState[action.ride.id] = action.ride;
+            createState[action.review.id] = action.review;
             return createState;
-        case LOAD_SINGLE:
-            const singleState = { ...state };
-            singleState[action.ride.id] = action.ride;
-            return singleState;
         case EDIT:
             const editState = { ...state };
             editState[action.ride.id] = action.ride;
             return editState;
-        case REMOVE:
+        case DELETE:
             const removeState = { ...state }
             if (removeState[action.rideId]) delete removeState[action.rideId]
             return removeState;
@@ -107,4 +98,4 @@ const ridesReducer = (state = {}, action) => {
     }
 }
 
-export default ridesReducer;
+export default reviewsReducer;

@@ -47,7 +47,7 @@ const rideValidator = [
 ]
 
 router.get('/', asyncHandler(async (req, res) => {
-    const rides = await db.Ride.findAll({ include: ['Images'] });
+    const rides = await db.Ride.findAll({ include: ['Images', 'Reviews'] });
     return res.json(rides);
 }));
 

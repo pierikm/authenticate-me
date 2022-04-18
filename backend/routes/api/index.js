@@ -16,7 +16,7 @@ router.use('/images', imagesRouter);
 
 router.use('/bookings', bookingsRouter);
 
-router.use('./reviews', reviewsRouter);
+router.use('/reviews', reviewsRouter);
 
 // router.use('/bookings', bookingsRouter);
 

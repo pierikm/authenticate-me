@@ -18,4 +18,10 @@ router.get('/', asyncHandler(async (req, res) => {
     return res.json(reviews);
 }));
 
+router.post('/', csrfProtection, asyncHandler(async (req, res) => {
+    console.log(req.body);
+    const review = await db.Review.create(req.body);
+    return res.json(review);
+}));
+
 module.exports = router;

@@ -40,7 +40,9 @@ function ReviewForm() {
                     type='textarea'
                     value={content}
                     onChange={(e) => setContent(e.target.value)} />
-                <button type="submit">Submit</button>
+                <button
+                    type="submit"
+                    className='button'>Submit</button>
             </form>
         </>
     );

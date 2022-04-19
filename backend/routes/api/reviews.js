@@ -22,7 +22,8 @@ router.get('/', asyncHandler(async (req, res) => {
 router.post('/', csrfProtection, asyncHandler(async (req, res) => {
     console.log(req.body);
     const review = await db.Review.create(req.body);
-    return res.json(review);
+    const newReview = await db.Review.findByPk(review.id, { include: ['User'] });
+    return res.json(newReview);
 }));
 
 router.put('/:id', csrfProtection, asyncHandler(async (req, res) => {

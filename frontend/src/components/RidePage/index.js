@@ -9,6 +9,7 @@ import AddImgForm from "../AddImgForm";
 import AddBookingForm from "../AddBookingForm";
 import Reviews from "../Reviews";
 import ReviewForm from "../Reviews/ReviewForm";
+import { Modal2 } from "../Modal";
 import './Ride.css';
 
 const RidePage = () => {
@@ -21,6 +22,7 @@ const RidePage = () => {
     const [showBook, setShowBook] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [showAddImg, setShowAddImg] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [imgKey, setImgKey] = useState(Date.now());
 
     const history = useHistory();
@@ -150,7 +152,18 @@ const RidePage = () => {
                     </button>
                 }
             </div>
-            <ReviewForm />
+            <button
+                className="button"
+                onClick={() => !showModal && setShowModal(true)}>
+                Review Ride
+            </button>
+            <Modal2
+                title="Write a Review"
+                onClose={() => setShowModal(false)}
+                show={showModal}
+            >
+                <ReviewForm />
+            </Modal2>
             <Reviews />
         </ div>
     );

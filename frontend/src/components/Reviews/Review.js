@@ -45,8 +45,12 @@ function Review({ review }) {
             }
             {userId === review.User.id &&
                 <span>
-                    <button onClick={hideForm}>Edit</button>
-                    <button onClick={handleDelete}>Delete</button>
+                    <button
+                        className="button"
+                        onClick={hideForm}>Edit</button>
+                    <button
+                        className="button"
+                        onClick={handleDelete}>Delete</button>
                 </span>
             }
             {isEditing &&
@@ -64,7 +68,9 @@ function Review({ review }) {
                         type='textarea'
                         value={content}
                         onChange={(e) => setContent(e.target.value)} />
-                    <button type="submit">Submit</button>
+                    <button
+                        type="submit"
+                        className="button">Submit</button>
                 </form>
             }
         </>

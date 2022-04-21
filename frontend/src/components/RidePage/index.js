@@ -12,6 +12,7 @@ import Reviews from "../Reviews";
 import ReviewForm from "../Reviews/ReviewForm";
 import { Modal2 } from "../Modal";
 import './Ride.css';
+import { loadRideBookings } from "../../store/bookings";
 
 const RidePage = () => {
     const dispatch = useDispatch();
@@ -29,13 +30,7 @@ const RidePage = () => {
     const ride = useSelector((state) => state.rides[rideId]);
     const images = useSelector((state) => state.images);
     const reviews = useSelector(state => {
-        // let rating = 0;
-        const reviews = Object.values(state.reviews)
-        // const length = reviews.length;
-        // reviews.forEach(review => {
-        //     rating += review.rating / length;
-        // });
-        // setRating(rating);
+        const reviews = state.reviews;
         return reviews;
     });
 
@@ -49,13 +44,14 @@ const RidePage = () => {
     useEffect(() => {
         (async () => {
             await dispatch(getReviews(rideId));
+            await dispatch(loadRideBookings(rideId))
         })();
     }, [dispatch]);
 
     useEffect(() => {
         let rating = 0;
-        const length = reviews.length;
-        reviews.forEach(review => {
+        const length = Object.values(reviews).length;
+        Object.values(reviews).forEach(review => {
             rating += review.rating / length;
         });
         setRating(rating);
@@ -185,11 +181,13 @@ const RidePage = () => {
                     </button>
                 }
             </div>
-            <button
-                className="button"
-                onClick={() => !showModal && setShowModal(true)}>
-                Review Ride
-            </button>
+            {!reviews[userId] &&
+                <button
+                    className="button"
+                    onClick={() => !showModal && setShowModal(true)}>
+                    Review Ride
+                </button>
+            }
             <Modal2
                 title="Write a Review"
                 onClose={() => setShowModal(false)}
@@ -197,7 +195,7 @@ const RidePage = () => {
             >
                 <ReviewForm hideForm={() => setShowModal(false)} />
             </Modal2>
-            <Reviews reviews={reviews} />
+            <Reviews reviews={Object.values(reviews)} />
         </ div>
     );
 }

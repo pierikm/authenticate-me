@@ -86,6 +86,16 @@ router.get('/:id/reviews', asyncHandler(async (req, res) => {
     return res.json(reviews);
 }));
 
+router.get('/:id/bookings', asyncHandler(async (req, res) => {
+    const rideId = Number(req.params.id)
+    const bookings = await db.Booking.findAll({
+        where: {
+            rideId: rideId
+        }
+    });
+    return res.json(bookings);
+}));
+
 router.post('/', rideValidator, csrfProtection, asyncHandler(async (req, res) => {
     const ride = await db.Ride.create(req.body);
     console.log("***********", ride);

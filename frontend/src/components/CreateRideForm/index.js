@@ -33,7 +33,6 @@ const CreateRideForm = ({ hideForm }) => {
         if (travelType === '') errorsArr.push('Type of Ride: Please select how your ride goes.')
 
         setErrors(errorsArr);
-        // return (errors.length > 0)
     }
 
     const history = useHistory();
@@ -64,7 +63,6 @@ const CreateRideForm = ({ hideForm }) => {
             travelType
         }
 
-        // console.log(errors)
         setShowErrors(true);
         if (!errors.length) {
             const createdRide = await dispatch(createRide(payload))
@@ -100,7 +98,6 @@ const CreateRideForm = ({ hideForm }) => {
                     <input
                         type='text'
                         placeholder="Name"
-                        // required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
@@ -110,7 +107,6 @@ const CreateRideForm = ({ hideForm }) => {
                     <input
                         type='text'
                         placeholder="Location"
-                        // required
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
                     />
@@ -125,7 +121,6 @@ const CreateRideForm = ({ hideForm }) => {
                             id="price-input"
                             type="number"
                             placeholder="Price"
-                            // required
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                         />
@@ -137,7 +132,6 @@ const CreateRideForm = ({ hideForm }) => {
                         <input
                             type="number"
                             placeholder="Speed"
-                            // required
                             value={speed}
                             onChange={(e) => setSpeed(e.target.value)}
                         />
@@ -152,7 +146,6 @@ const CreateRideForm = ({ hideForm }) => {
                     <textarea
                         placeholder="Description"
                         rows="8"
-                        // required
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />

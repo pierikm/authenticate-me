@@ -7,10 +7,13 @@ import './UserBookings.css';
 
 const UserBookings = () => {
     const dispatch = useDispatch();
-    const [timeKey, setTimeKey] = useState(Date.now())
     const user = useSelector(state => state.session.user);
     const bookings = useSelector(state => {
-        return Object.values(state.bookings)
+        return Object.values(state.bookings).sort((a, b) => {
+            const dayA = new Date(a.startDate);
+            const dayB = new Date(b.startDate);
+            return dayA - dayB;
+        })
     });
     const rides = useSelector(state => {
         return Object.values(state.rides);
@@ -18,15 +21,8 @@ const UserBookings = () => {
 
     useEffect(() => {
         dispatch(loadBookings(user?.id));
-        dispatch(getRides())
-    }, [dispatch, user?.id])
+    }, [dispatch])
 
-    // useEffect(() => {
-    //     // console.log(timeKey);
-    //     setTimeKey(Date.now())
-    // }, [rides]);
-
-    // console.log(rides);
 
     const formatDateString = (date) => {
         const dateObject = new Date(date);
@@ -39,10 +35,7 @@ const UserBookings = () => {
     }
 
     const handleDelete = async (id) => {
-        dispatch(removeBooking(id))
-            .then(dispatch(loadBookings(user?.id)))
-            .then(dispatch(getRides()))
-            .then(setTimeKey(Date.now()));
+        await dispatch(removeBooking(id))
     }
 
     // const bookingsArr = Object.values(bookings);
@@ -53,7 +46,7 @@ const UserBookings = () => {
     }
 
     return (
-        <div key={timeKey} className="bookings-container">
+        <div className="bookings-container">
             <h2 className="bookings-title">{user.username}'s Bookings</h2>
             {bookings?.map((booking) => {
                 const startDate = formatDateString(booking.startDate);

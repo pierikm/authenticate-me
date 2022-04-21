@@ -24,8 +24,16 @@ export const loadBookings = (userId) => async (dispatch) => {
     if (response.ok) {
         const user = await response.json();
         dispatch(load(user.Bookings));
-        console.log("user", user);
         return user.Bookings;
+    }
+}
+
+export const loadRideBookings = (rideId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/rides/${rideId}/bookings`);
+    if (response.ok) {
+        const bookings = await response.json();
+        dispatch(load(bookings));
+        return bookings;
     }
 }
 
@@ -56,7 +64,7 @@ export const removeBooking = (id) => async (dispatch) => {
 const bookingsReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD:
-            const loadState = { ...state };
+            const loadState = {};
             const bookings = Object.values(action.bookings);
             bookings.forEach(booking => {
                 loadState[booking.id] = booking;

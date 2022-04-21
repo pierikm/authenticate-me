@@ -11,12 +11,7 @@ const AddBookingForm = ({ hideForm, userId, rideId }) => {
     const [endDate, setEndDate] = useState(new Date());
     const [errors, setErrors] = useState([]);
     const [showErrors, setShowErrors] = useState(false);
-    const bookings = useSelector(state => {
-        if (state.rides[rideId].Bookings) {
-            return Object.values(state.rides[rideId].Bookings)
-        }
-        else return [];
-    })
+    const bookings = useSelector(state => Object.values(state.bookings));
 
     const checkDates = () => {
         // const bookingsArr = (bookings ? Object.values(bookings) : []);

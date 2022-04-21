@@ -46,8 +46,26 @@ const rideValidator = [
         .withMessage('Please select how your ride goes')
 ]
 
+const getRideRating = (ride) => {
+    let rating = 0;
+    ride.dataValues.Reviews.forEach(review => {
+        rating += review.rating;
+    });
+    return ride.dataValues.Reviews.length ? rating / ride.dataValues.Reviews.length : 0;
+}
+
 router.get('/', asyncHandler(async (req, res) => {
-    const rides = await db.Ride.findAll({ include: ['Images'] });
+    const rides = await db.Ride.findAll({ include: ['Images', 'Reviews'] });
+    // console.log(rides);
+    for (const ride of rides) {
+        // console.log("**********", ride.dataValues);
+        // let rating = 0;
+        // ride.dataValues.Reviews.forEach(review => {
+        //     rating += review.rating;
+        // });
+        // rating = rating / ride.dataValues.Reviews.length;
+        ride.dataValues.rating = getRideRating(ride);
+    }
     return res.json(rides);
 }));
 
@@ -58,7 +76,6 @@ router.get('/:id', asyncHandler(async (req, res) => {
 }));
 
 router.get('/:id/reviews', asyncHandler(async (req, res) => {
-    // console.log("*************IN RIDES/REVIEWS")
     const rideId = Number(req.params.id)
     const reviews = await db.Review.findAll({
         where: {
@@ -71,12 +88,15 @@ router.get('/:id/reviews', asyncHandler(async (req, res) => {
 
 router.post('/', rideValidator, csrfProtection, asyncHandler(async (req, res) => {
     const ride = await db.Ride.create(req.body);
-    return res.json(ride);
+    console.log("***********", ride);
+    const createdRide = await db.Ride.findByPk(ride.dataValues.id, { include: ['Images', 'Bookings', 'Reviews'] });
+    createdRide.dataValues.rating = 0;
+    return res.json(createdRide);
 }));
 
 router.put('/:id', csrfProtection, asyncHandler(async (req, res) => {
     const rideId = Number(req.params.id)
-    const ride = await db.Ride.findByPk(rideId, { include: ['Images'] });
+    const ride = await db.Ride.findByPk(rideId, { include: ['Images', 'Bookings', 'Reviews'] });
     const updatedRide = await ride.update(req.body);
     return res.json(updatedRide);
 }));

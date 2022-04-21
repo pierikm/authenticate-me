@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createRide } from '../../store/rides';
+import { getReviews } from "../../store/reviews";
 import './CreateRide.css';
 
 
@@ -71,6 +72,7 @@ const CreateRideForm = ({ hideForm }) => {
                 hideForm()
                 setShowErrors(false);
                 reset();
+                await dispatch(getReviews(createdRide.id));
                 redirect(createdRide.id);
             }
         }

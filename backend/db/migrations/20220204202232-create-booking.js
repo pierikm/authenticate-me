@@ -11,6 +11,7 @@ module.exports = {
       rideId: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
         references: { model: "Rides" }
       },
       userId: {

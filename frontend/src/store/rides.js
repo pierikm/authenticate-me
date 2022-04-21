@@ -4,7 +4,7 @@ const LOAD = 'rides/LOAD';
 const LOAD_SINGLE = 'rides/LOAD_SINGLE';
 const CREATE = 'rides/CREATE';
 const EDIT = 'rides/EDIT';
-const REMOVE = 'rides/REMOVE';
+const DELETE = 'rides/DELETE';
 
 const load = (rides) => ({
     type: LOAD,
@@ -26,8 +26,8 @@ const edit = (ride) => ({
     ride
 })
 
-const remove = (rideId) => ({
-    type: REMOVE,
+const del = (rideId) => ({
+    type: DELETE,
     rideId
 })
 
@@ -81,10 +81,23 @@ export const deleteRide = (id) => async (dispatch) => {
     })
     if (response.ok) {
         const rideId = await response.json();
-        dispatch(remove(rideId))
+        dispatch(del(rideId))
         return rideId;
     }
 }
+
+export const addImage = (payload) => async (dispatch) => {
+    const response = await csrfFetch(`/api/images`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+    if (response.ok) {
+        const ride = await response.json();
+        dispatch(edit(ride));
+        return ride;
+    }
+};
 
 const ridesReducer = (state = {}, action) => {
     switch (action.type) {
@@ -106,7 +119,7 @@ const ridesReducer = (state = {}, action) => {
             const editState = { ...state };
             editState[action.ride.id] = action.ride;
             return editState;
-        case REMOVE:
+        case DELETE:
             const removeState = { ...state }
             if (removeState[action.rideId]) delete removeState[action.rideId]
             return removeState;

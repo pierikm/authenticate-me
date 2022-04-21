@@ -14,6 +14,7 @@ module.exports = {
       },
       rideId: {
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
         references: { model: "Rides" }
       },
       review: {

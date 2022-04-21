@@ -35,8 +35,11 @@ router.put('/:id', csrfProtection, asyncHandler(async (req, res) => {
 
 router.delete('/:id', csrfProtection, asyncHandler(async (req, res) => {
     const id = Number(req.params.id);
-    db.Review.destroy({ where: { id } });
-    return res.json(id);
+    const review = await db.Review.findByPk(id);
+    console.log("**********", review);
+    const userId = review.dataValues.userId;
+    review.destroy();
+    return res.json(userId);
 }));
 
 module.exports = router;

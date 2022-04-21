@@ -20,9 +20,9 @@ const edit = (review) => ({
     review
 })
 
-const del = (id) => ({
+const del = (userId) => ({
     type: DELETE,
-    id
+    userId
 })
 
 export const getReviews = (rideId) => async (dispatch) => {
@@ -65,9 +65,9 @@ export const deleteReview = (id) => async (dispatch) => {
         method: 'DELETE',
     })
     if (response.ok) {
-        const reviewId = await response.json();
-        dispatch(del(reviewId))
-        return reviewId;
+        const userId = await response.json();
+        dispatch(del(userId))
+        return userId;
     }
 }
 
@@ -76,20 +76,20 @@ const reviewsReducer = (state = {}, action) => {
         case LOAD:
             const loadState = {};
             action.reviews.forEach(review => {
-                loadState[review.id] = review;
+                loadState[review.userId] = review;
             })
             return loadState;
         case CREATE:
             const createState = { ...state };
-            createState[action.review.id] = action.review;
+            createState[action.review.userId] = action.review;
             return createState;
         case EDIT:
             const editState = { ...state };
-            editState[action.review.id] = action.review;
+            editState[action.review.userId] = action.review;
             return editState;
         case DELETE:
             const removeState = { ...state }
-            if (removeState[action.id]) delete removeState[action.id]
+            if (removeState[action.userId]) delete removeState[action.userId]
             return removeState;
         default:
             return { ...state };

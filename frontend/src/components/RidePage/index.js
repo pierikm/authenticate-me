@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useHistory, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import StarRatings from 'react-star-ratings';
 import { deleteRide } from '../../store/rides';
 import { getReviews } from "../../store/reviews";
 import { deleteImage } from "../../store/images";
@@ -13,17 +14,30 @@ import { Modal2 } from "../Modal";
 import './Ride.css';
 
 const RidePage = () => {
-    const sessionUser = useSelector(state => state.session.user);
     const dispatch = useDispatch();
+
     const { rideId } = useParams();
-    const userId = useSelector((state) => state.session.user?.id);
-    const ride = useSelector((state) => state.rides[rideId]);
-    const images = useSelector((state) => state.images);
     const [showBook, setShowBook] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [showAddImg, setShowAddImg] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [imgKey, setImgKey] = useState(Date.now());
+    const [rating, setRating] = useState(0);
+
+    const sessionUser = useSelector(state => state.session.user);
+    const userId = useSelector((state) => state.session.user?.id);
+    const ride = useSelector((state) => state.rides[rideId]);
+    const images = useSelector((state) => state.images);
+    const reviews = useSelector(state => {
+        // let rating = 0;
+        const reviews = Object.values(state.reviews)
+        // const length = reviews.length;
+        // reviews.forEach(review => {
+        //     rating += review.rating / length;
+        // });
+        // setRating(rating);
+        return reviews;
+    });
 
     const history = useHistory();
     const redirect = () => history.replace('/rides')
@@ -38,16 +52,18 @@ const RidePage = () => {
         })();
     }, [dispatch]);
 
-    if (!ride) {
-        return null;
-    }
+    useEffect(() => {
+        let rating = 0;
+        const length = reviews.length;
+        reviews.forEach(review => {
+            rating += review.rating / length;
+        });
+        setRating(rating);
+    }, [reviews])
 
     const noImage = "https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg";
 
     const handleDelete = async () => {
-        ride.Images.forEach(async (image) => {
-            await dispatch(deleteImage(image.id));
-        });
         await dispatch(deleteRide(rideId));
         redirect();
     }
@@ -71,6 +87,10 @@ const RidePage = () => {
         )
     }
 
+    if (!ride) {
+        return null;
+    }
+
     return (
         <div className="ride-page-container">
             <div className="img-scroller snaps-inline">
@@ -89,6 +109,19 @@ const RidePage = () => {
                 <h2 className="ride-title ride-dtl">
                     {ride?.name}
                 </h2>
+                <div className="ride-rating">
+                    <StarRatings
+                        rating={rating}
+                        starRatedColor="yellow"
+                        starHoverColor="red"
+                        numberOfStars={5}
+                        name='rating'
+                        starEmptyColor='gray'
+                        starDimension='2rem'
+                        starSpacing='0.2rem'
+                    />
+                    <span className="ride-rating-number">({rating})</span>
+                </div>
                 <div className="ride-location ride-dtl">
                     Location: {ride?.location}
                 </div>
@@ -162,9 +195,9 @@ const RidePage = () => {
                 onClose={() => setShowModal(false)}
                 show={showModal}
             >
-                <ReviewForm />
+                <ReviewForm hideForm={() => setShowModal(false)} />
             </Modal2>
-            <Reviews />
+            <Reviews reviews={reviews} />
         </ div>
     );
 }

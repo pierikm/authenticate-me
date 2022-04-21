@@ -9,7 +9,9 @@ const router = express.Router();
 
 router.post('/', csrfProtection, asyncHandler(async (req, res) => {
     const image = await db.Image.create(req.body);
-    return res.json(image);
+    console.log("***********", image.dataValues.rideId)
+    const ride = await db.Ride.findByPk(image.dataValues.rideId, { include: ['Images', 'Bookings', 'Reviews'] })
+    return res.json(ride);
 }));
 
 router.delete('/:id', csrfProtection, asyncHandler(async (req, res) => {

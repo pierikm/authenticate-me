@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
 
-import { addImage } from '../../store/images';
-import { getSingleRide } from "../../store/rides";
+// import { addImage } from '../../store/images';
+import { addImage } from "../../store/rides";
 
 function isValidHttpUrl(string) {
     let url;
@@ -30,7 +30,7 @@ const AddImgForm = ({ rideId, hideForm }) => {
                 url
             };
             dispatch(addImage(imgPayload));
-            dispatch(getSingleRide(rideId));
+            // dispatch(getSingleRide(rideId));
             setUrl('');
             hideForm();
         }

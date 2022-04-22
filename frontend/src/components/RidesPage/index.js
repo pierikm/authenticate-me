@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import StarRatings from 'react-star-ratings';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRides } from "../../store/rides";
 import './Rides.css';
@@ -15,9 +16,11 @@ const Rides = () => {
 
     // console.log("rides: ", rides);
 
-    // useEffect(() => {
-    //     dispatch(getRides());
-    // }, [dispatch])
+    useEffect(() => {
+        (async () => {
+            await dispatch(getRides());
+        })();
+    }, [dispatch])
     return (
         <>
             {rides.map((ride) => (
@@ -33,6 +36,21 @@ const Rides = () => {
                             {ride?.name}
                         </h2>
                         <div className='rides-details'>
+                            <div className="ride-rating">
+                                <StarRatings
+                                    rating={ride.rating}
+                                    starRatedColor="yellow"
+                                    starHoverColor="red"
+                                    numberOfStars={5}
+                                    name='rating'
+                                    starEmptyColor='gray'
+                                    starDimension='1.5rem'
+                                    starSpacing='0.2rem'
+                                />
+                                <span className="rides-rating-number">
+                                    {ride.rating % 1 === 0 ? ride.rating : ride.rating.toFixed(1)} stars
+                                </span>
+                            </div>
                             <div className='rides-location'>
                                 Location: {ride?.location}
                             </div>

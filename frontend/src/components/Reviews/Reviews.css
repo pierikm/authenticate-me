@@ -1,3 +1,58 @@
 .reviews-container {
-    min-width: 100%;
+    min-width: 50rem;
+}
+
+.review-form-btn {
+    margin-top: 0.5rem;
+}
+
+.reviews-container {
+    margin: 2rem;
+    /* padding-left: 5rem; */
+}
+
+.reviews-title {
+    font-size: 2rem;
+    font-family: 'Merriweather', serif;
+    border-bottom: 1px solid white;
+}
+
+.review-btns>.button,
+.edit-review-btn {
+    height: 1.8rem;
+    width: 3.8rem;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    padding: 0;
+}
+
+.review-btns,
+.edit-review-btns {
+    display: flex;
+    flex-direction: row;
+}
+
+.review-container {
+    background-color: rgb(10, 10, 10);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid gray;
+}
+
+.review-content {
+    margin: 0.5rem 0 1rem;
+}
+
+.review-user {
+    font-weight: bold;
+}
+
+.review-edit-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-review-content {
+    margin-bottom: 0.5rem;
 }

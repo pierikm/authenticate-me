@@ -24,7 +24,7 @@
     width: 500px;
     height: 300px;
     position: absolute;
-    background-color: white;
+    background-color: rgb(20, 20, 20);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,7 +50,7 @@
     width: 500px;
     height: 500px;
     position: absolute;
-    background-color: white;
+    background-color: rgb(20, 20, 20);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -94,8 +94,8 @@
 
 .modal-content {
     width: 500px;
-    background-color: #FFF;
-    border: 1px solid var(--modal-border);
+    background-color: rgb(20, 20, 20);
+    border: 1px solid gray;
     color: black;
     border-radius: 1rem;
     padding: 1rem;

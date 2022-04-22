@@ -116,7 +116,9 @@ const RidePage = () => {
                         starDimension='2rem'
                         starSpacing='0.2rem'
                     />
-                    <span className="ride-rating-number">({rating})</span>
+                    <span className="ride-rating-number">
+                        {rating % 1 === 0 ? rating : rating.toFixed(1)} stars
+                    </span>
                 </div>
                 <div className="ride-location ride-dtl">
                     Location: {ride?.location}
@@ -180,21 +182,23 @@ const RidePage = () => {
                         Delete Ride
                     </button>
                 }
+                {!reviews[userId] && userId !== ride?.userId &&
+                    <button
+                        className="button review-btn"
+                        onClick={() => !showModal && setShowModal(true)}>
+                        Review Ride
+                    </button>
+                }
             </div>
-            {!reviews[userId] &&
-                <button
-                    className="button"
-                    onClick={() => !showModal && setShowModal(true)}>
-                    Review Ride
-                </button>
-            }
-            <Modal2
-                title="Write a Review"
-                onClose={() => setShowModal(false)}
-                show={showModal}
-            >
-                <ReviewForm hideForm={() => setShowModal(false)} />
-            </Modal2>
+            <div className="review-form">
+                <Modal2
+                    title="Write a Review"
+                    onClose={() => setShowModal(false)}
+                    show={showModal}
+                >
+                    <ReviewForm hideForm={() => setShowModal(false)} />
+                </Modal2>
+            </div>
             <Reviews reviews={Object.values(reviews)} />
         </ div>
     );

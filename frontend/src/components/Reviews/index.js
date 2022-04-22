@@ -5,7 +5,7 @@ import './Reviews.css';
 
 function Reviews({ reviews }) {
     const [isLoaded, setIsLoaded] = useState(false);
-    
+
 
     useEffect(() => {
         setIsLoaded(true);
@@ -15,6 +15,7 @@ function Reviews({ reviews }) {
 
     return (
         <div className='reviews-container'>
+            <h2 className='reviews-title'>Reviews</h2>
             {reviews.map(review => (
                 <Review key={review.id} review={review} />
             ))}

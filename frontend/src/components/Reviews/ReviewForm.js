@@ -27,7 +27,6 @@ function ReviewForm({ hideForm }) {
 
     return (
         <>
-            <div>Review Form!</div>
             <form onSubmit={(e) => handleSubmit(e)}>
                 {/* <select
                     value={rating}
@@ -55,7 +54,7 @@ function ReviewForm({ hideForm }) {
                     onChange={(e) => setContent(e.target.value)} />
                 <button
                     type="submit"
-                    className='button'>Submit</button>
+                    className='button review-form-btn'>Submit</button>
             </form>
         </>
     );

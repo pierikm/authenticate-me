@@ -37,7 +37,7 @@ function Review({ review }) {
 
     return (
         <div className="review-container">
-            <div>{review.User.username}</div>
+            <div className="review-user">{review.User.username}</div>
             {!isEditing &&
                 <>
                     <StarRatings
@@ -48,14 +48,16 @@ function Review({ review }) {
                         numberOfStars={5}
                         name='rating'
                         starEmptyColor='gray'
-                        starDimension='2rem'
+                        starDimension='1.5rem'
                         starSpacing='0.2rem'
                     />
-                    <div>{review.review}</div>
+                    <div className="review-content">
+                        {review.review}
+                    </div>
                 </>
             }
-            {userId === review.User.id &&
-                <span>
+            {userId === review.User.id && !isEditing &&
+                <span className="review-btns">
                     <button
                         className="button"
                         onClick={hideForm}>Edit</button>
@@ -65,7 +67,7 @@ function Review({ review }) {
                 </span>
             }
             {isEditing &&
-                <form onSubmit={(e) => handleEdit(e)}>
+                <form className="review-edit-form" onSubmit={(e) => handleEdit(e)}>
                     <StarRatings
                         rating={Number(rating)}
                         starRatedColor="yellow"
@@ -79,11 +81,24 @@ function Review({ review }) {
                     />
                     <textarea
                         type='textarea'
+                        className="edit-review-content"
                         value={content}
                         onChange={(e) => setContent(e.target.value)} />
-                    <button
-                        type="submit"
-                        className="button">Submit</button>
+                    <span className="edit-review-btns">
+                        <button
+                            type="submit"
+                            className="button edit-review-btn">
+                            Submit
+                        </button>
+                        <button
+                            className="button edit-review-btn"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setIsEditing(false);
+                            }}>
+                            Cancel
+                        </button>
+                    </span>
                 </form>
             }
         </div>

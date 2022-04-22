@@ -16,7 +16,7 @@
 .img-element>img {
     inline-size: 100%;
     aspect-ratio: 16 / 9;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .snaps-inline {
@@ -128,5 +128,3 @@
     /* flex-direction: row; */
     align-items: center;
 }
-
-

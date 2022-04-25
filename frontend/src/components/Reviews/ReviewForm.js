@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { createReview } from '../../store/reviews';
+import { reviewValidator } from './utils';
 import StarRatings from 'react-star-ratings';
 
 
 function ReviewForm({ hideForm }) {
     const [rating, setRating] = useState(1);
     const [content, setContent] = useState('');
+    const [errors, setErrors] = useState([]);
     const userId = useSelector(state => state.session.user.id);
     const { rideId } = useParams()
     const dispatch = useDispatch();
@@ -25,8 +27,17 @@ function ReviewForm({ hideForm }) {
         if (newReview) hideForm();
     };
 
+    useEffect(() => {
+        reviewValidator(content, setErrors);
+    }, [content])
+
     return (
         <>
+            <ul>
+                {errors.map(error => (
+                    <li key={error} className="error">{error}</li>
+                ))}
+            </ul>
             <form onSubmit={(e) => handleSubmit(e)}>
                 {/* <select
                     value={rating}

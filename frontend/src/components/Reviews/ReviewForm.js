@@ -22,9 +22,10 @@ function ReviewForm({ hideForm }) {
             review: content,
             rating: rating
         }
-        console.log(payload);
-        const newReview = await dispatch(createReview(payload));
-        if (newReview) hideForm();
+        if(!errors.length){
+            const newReview = await dispatch(createReview(payload));
+            if (newReview) hideForm();
+        }
     };
 
     useEffect(() => {
@@ -33,12 +34,12 @@ function ReviewForm({ hideForm }) {
 
     return (
         <>
-            <ul>
-                {errors.map(error => (
-                    <li key={error} className="error">{error}</li>
-                ))}
-            </ul>
             <form onSubmit={(e) => handleSubmit(e)}>
+                <ul className='review-errors'>
+                    {errors.map(error => (
+                        <li key={error} className="error">{error}</li>
+                    ))}
+                </ul>
                 {/* <select
                     value={rating}
                     onChange={(e) => setRating(Number(e.target.value))}>

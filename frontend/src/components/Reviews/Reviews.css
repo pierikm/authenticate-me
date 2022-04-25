@@ -56,3 +56,15 @@
 .edit-review-content {
     margin-bottom: 0.5rem;
 }
+
+.review-errors>* {
+    color: lightcoral;
+    padding: 0.5rem;
+    border-bottom: 1px solid grey;
+    font-size: 1rem;
+}
+
+.review-errors {
+    padding-left: 0;
+    margin: 0;
+}

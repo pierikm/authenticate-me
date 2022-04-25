@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { editReview, deleteReview } from '../../store/reviews';
+import { reviewValidator } from './utils';
 import StarRatings from 'react-star-ratings';
 
 function Review({ review }) {
     const [isEditing, setIsEditing] = useState(false);
     const [rating, setRating] = useState(review.rating);
     const [content, setContent] = useState(review.review);
+    const [errors, setErrors] = useState([]);
     const userId = useSelector(state => state.session.user.id);
     const dispatch = useDispatch();
 
@@ -19,10 +21,12 @@ function Review({ review }) {
             review: content,
             rating
         }
-        await dispatch(editReview(payload, review.id))
-        setIsEditing(false);
-        setRating(`${review.rating}`);
-        setContent(review.review)
+        if (!errors.length) {
+            await dispatch(editReview(payload, review.id))
+            setIsEditing(false);
+            // setRating(review.rating);
+            // setContent(review.review)
+        }
     }
 
     const handleDelete = async () => {
@@ -30,10 +34,14 @@ function Review({ review }) {
     }
 
     const hideForm = () => {
-        setRating(`${review.rating}`);
+        setRating(review.rating);
         setContent(review.review)
         setIsEditing(!isEditing);
     }
+
+    useEffect(() => {
+        reviewValidator(content, setErrors);
+    }, [content])
 
     return (
         <div className="review-container">
@@ -68,6 +76,11 @@ function Review({ review }) {
             }
             {isEditing &&
                 <form className="review-edit-form" onSubmit={(e) => handleEdit(e)}>
+                    <ul className='review-errors'>
+                        {errors.map(error => (
+                            <li key={error} className="error">{error}</li>
+                        ))}
+                    </ul>
                     <StarRatings
                         rating={Number(rating)}
                         starRatedColor="yellow"
